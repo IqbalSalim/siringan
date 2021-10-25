@@ -1,0 +1,57 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base{
+    [type='text'],
+          [type='email'],
+          [type='url'],
+          [type='password'],
+          [type='number'],
+          [type='date'],
+          [type='datetime-local'],
+          [type='month'],
+          [type='search'],
+          [type='tel'],
+          [type='time'],
+          [type='week'],
+          [multiple],
+          textarea,
+          select {
+              @apply w-full rounded-lg shadow-sm border-default border-opacity-80 focus:border-primary focus:ring-primary;
+          }
+    [type='checkbox'],
+    [type='radio'] {
+        @apply rounded text-primary text-opacity-90 border-default border-opacity-80 focus:ring-primary;
+    }
+}
+
+@layer components{
+    .card{
+        @apply px-4 bg-white divide-y-2 divide-gray-100 rounded-lg shadow-lg;
+    }
+
+    .btn{
+        @apply px-4 py-2 font-medium capitalize rounded-lg focus:outline-none;
+    }
+
+    .btn-default{
+        @apply text-white btn hover:bg-opacity-80 bg-default focus:ring-2 focus:ring-default focus:ring-opacity-50;
+    }
+    .btn-primary{
+        @apply text-white btn hover:bg-opacity-80 bg-primary focus:ring-2 focus:ring-primary focus:ring-opacity-50;
+    }
+    .btn-secondary{
+        @apply text-white btn hover:bg-opacity-80 bg-secondary focus:ring-2 focus:ring-secondary focus:ring-opacity-50;
+    }
+    .btn-info{
+        @apply text-white btn hover:bg-opacity-80 bg-info focus:ring-2 focus:ring-info focus:ring-opacity-50;
+    }
+    .btn-warning{
+        @apply text-white btn hover:bg-opacity-80 bg-warning focus:ring-2 focus:ring-warning focus:ring-opacity-50;
+    }
+    .btn-danger{
+        @apply text-white btn hover:bg-opacity-80 bg-danger focus:ring-2 focus:ring-danger focus:ring-opacity-50;
+    }
+
+}
