@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\ShowRab;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ Route::get('/', function () {
 Route::get('buat-rab', function () {
     return view('buat-rab');
 })->name('buat-rab');
+
+Route::get('show-rab', ShowRab::class)->name('show-rab');
 
 Route::get('arsip-rab', function () {
     return view('arsip-rab');

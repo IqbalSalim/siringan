@@ -3,6 +3,11 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Buat RAB') }}
         </h2>
+        <div class="flex flex-row space-x-1 text-sm text-gray-400">
+            <div class="hover:text-primary"><a href="/dashboard">Dashboard</a></div>
+            <div>-</div>
+            <div>Buat RAB</div>
+        </div>
     </x-slot>
 
     <div class="py-12">
