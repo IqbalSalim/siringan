@@ -1,27 +1,23 @@
 <div>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('RAB') }}
+            {{ __('Detail RAB') }}
         </h2>
         <div class="flex flex-row space-x-1 text-sm text-gray-400">
             <div class="hover:text-primary"><a href="/dashboard">Dashboard</a></div>
             <div>-</div>
-            <div class="hover:text-primary"><a href="/buat-rab">Buat RAB</a></div>
+            <div class="hover:text-primary"><a href="/arsip-rab">Arsip RAB</a></div>
             <div>-</div>
-            <div>RAB</div>
+            <div>Detail RAB</div>
         </div>
     </x-slot>
 
     <div class="px-4 py-12 md:px-6 lg:px-8">
-        @if (session()->has('message'))
-            <div class="block px-4 py-2 my-2 text-white bg-opacity-50 bg-success rounded-xl">
-                {{ session('message') }}
-            </div>
-        @endif
+
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="flex flex-row justify-between">
                 <button class="text-sm btn-primary">Cetak</button>
-                <a href="/dashboard" class="text-sm btn-info">Kembali ke dashboard</a>
+                <a href="{{ route('arsip-rab') }}" class="text-sm btn-info">Kembali ke arsip RAB</a>
             </div>
             <div class="w-full overflow-x-auto md:overflow-hidden">
                 <table class="min-w-full mt-2 divide-y divide-gray-200 table-auto">

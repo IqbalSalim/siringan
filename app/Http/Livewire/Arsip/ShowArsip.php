@@ -1,21 +1,25 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Arsip;
 
 use App\Models\Barang;
 use App\Models\Ruangan;
 use Livewire\Component;
 
-class ShowRab extends Component
+class ShowArsip extends Component
 {
+
     public $rabs = [];
     public $total = 0, $upah = 0;
 
+
     public function render()
     {
-        $user = auth()->user();
-        $result = Ruangan::where('user_id', $user->id)->orderBy('created_at', 'desc')->limit(1)->get();
-        $data = json_decode($result[0]->data);
+
+        $id_ruangan =  session('id_ruangan');
+
+        $result = Ruangan::find($id_ruangan);
+        $data = json_decode($result->data);
 
         for ($i = 0; $i < count($data); $i++) {
 
@@ -105,6 +109,6 @@ class ShowRab extends Component
             }
         }
 
-        return view('livewire.show-rab');
+        return view('livewire.arsip.show-arsip');
     }
 }

@@ -44,13 +44,6 @@ class BuatRab extends Component
         unset($this->inputs[$i]);
     }
 
-    private function resetInputFields()
-    {
-        $this->ruangan = '';
-        $this->panjang = '';
-        $this->lebar = '';
-        $this->tinggi = '';
-    }
 
     public function store()
     {
@@ -86,12 +79,8 @@ class BuatRab extends Component
             'user_id' => $user->id,
             'data' => $data,
         ]);
-        dd('oke so maso');
-        // $this->inputs = [];
-
-        // $this->resetInputFields();
-
-        // session()->flash('message', 'Account Added Successfully.');
+        session()->flash('message', 'RAB Berhasil dibuat.');
+        return redirect()->to('show-rab');
     }
 
     public function render()

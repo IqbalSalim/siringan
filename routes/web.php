@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Arsip\IndexArsip;
+use App\Http\Livewire\Arsip\ShowArsip;
 use App\Http\Livewire\ShowRab;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +25,10 @@ Route::get('buat-rab', function () {
 })->name('buat-rab');
 
 Route::get('show-rab', ShowRab::class)->name('show-rab');
+Route::get('arsip-rab', IndexArsip::class)->name('arsip-rab');
+Route::get('detail-rab', ShowArsip::class)->name('detail-rab');
 
-Route::get('arsip-rab', function () {
-    return view('arsip-rab');
-})->name('arsip-rab');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

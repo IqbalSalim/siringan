@@ -4,13 +4,13 @@
             Form RAB
         </div>
         <div class="flex flex-row items-end justify-between py-2 space-x-4">
-            <div class="flex flex-col items-start flex-1 space-y-2 md:items-center md:flex-row md:space-x-4">
+            {{-- <div class="flex flex-col items-start flex-1 space-y-2 md:items-center md:flex-row md:space-x-4">
                 <label class="text-sm font-medium">Jenis Bangunan</label>
                 <select class="text-sm capitalize md:w-2/12 text-default">
                     <option value="rumah">rumah</option>
                     <option value="gedung">gedung</option>
                 </select>
-            </div>
+            </div> --}}
             <div class="py-2">
                 <a href="buat-rab" class="text-sm btn-info">Refresh</a>
             </div>
@@ -57,9 +57,13 @@
                             <span class="w-1/3 font-bold md:hidden">Ruangan</span>
                             <select class="text-sm" wire:model.defer="posts.ruangan.0" required>
                                 <option>-- Pilih Ruangan --</option>
+                                <option value="Teras">Teras</option>
+                                <option value="Ruang Tamu">Ruang Tamu</option>
+                                <option value="Ruang Keluarga">Ruang Keluarga</option>
                                 <option value="Kamar">Kamar</option>
                                 <option value="Dapur">Dapur</option>
-                                <option value="Ruang Tamu">Ruang Tamu</option>
+                                <option value="Kamar Mandi">Kamar Mandi</option>
+                                <option value="Ruang Santai/Kosong">Ruang Santai/Kosong</option>
                             </select>
                             @error('posts.ruangan.0') <span class="block text-sm text-danger">{{ $message }}</span>
                             @enderror
