@@ -97,6 +97,7 @@ class ShowRab extends Component
                     $this->rabs[$k]['nama'] = $barang->nama;
                     $this->rabs[$k]['satuan'] = $barang->satuan;
                     $this->rabs[$k]['harga'] = $barang->harga;
+                    $this->rabs[$k]['watt'] = $barang->watt;
                     $this->rabs[$k]['jumlah'] = $value['jumlah'];
                     $this->rabs[$k]['subTotal'] = $barang->harga * $value['jumlah'];
                     $this->total = $this->total + $this->rabs[$k]['subTotal'];

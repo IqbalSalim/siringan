@@ -63,7 +63,11 @@
                                     {{ $no += 1 }}
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
-                                    {{ $rab['nama'] }}
+                                    @if ($rab['watt'] !== null)
+                                        {{ $rab['nama'] . ' ' . $rab['watt'] . ' watt' }}
+                                    @else
+                                        {{ $rab['nama'] }}
+                                    @endif
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
                                     {{ $rab['jumlah'] }}
