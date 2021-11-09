@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Arsip;
 
 use App\Models\Barang;
 use App\Models\Ruangan;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ShowArsip extends Component
@@ -11,14 +12,18 @@ class ShowArsip extends Component
 
     public $rabs = [];
     public $total = 0, $upah = 0;
+    public $idRab;
 
+    public function mount(Request $req)
+    {
+        $this->idRab = $req->idRab;
+    }
 
     public function render()
     {
 
-        $id_ruangan =  session('id_ruangan');
 
-        $result = Ruangan::find($id_ruangan);
+        $result = Ruangan::find($this->idRab);
         $data = json_decode($result->data);
 
         for ($i = 0; $i < count($data); $i++) {

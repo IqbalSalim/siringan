@@ -3,15 +3,20 @@
 namespace App\Http\Livewire\Arsip;
 
 use App\Models\Ruangan;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class EditArsip extends Component
 {
+
+
     public $room_id;
     public $updateMode = false;
     public $posts;
     public $inputs = [];
-    public $i = 0;
+    public $i, $idRab;
+    protected $listeners = ['coba' => 'render'];
+
 
     public $aturan = [
         'posts.panjang.0' => 'required',
@@ -19,6 +24,32 @@ class EditArsip extends Component
         'posts.tinggi.0' => 'required',
         'posts.ruangan.0' => 'required',
     ];
+
+
+
+    // public function coba()
+    // {
+    //     dd('oke disnini');
+    // }
+
+    public function mount(Request $req)
+    {
+
+
+        $id =  $req->idRab;
+        $this->idRab = $id;
+        $rabs = Ruangan::find($id);
+        // dd(json_decode($rabs->data)[0]->panjang);
+        $data = json_decode($rabs->data);
+        $this->i = count($data) - 1;
+        for ($i = 0; $i <= $this->i; $i++) {
+            array_push($this->inputs, $i);
+            $this->posts['ruangan'][$i] = $data[$i]->ruangan;
+            $this->posts['panjang'][$i] = $data[$i]->panjang;
+            $this->posts['lebar'][$i] = $data[$i]->lebar;
+            $this->posts['tinggi'][$i] = $data[$i]->tinggi;
+        }
+    }
 
     public function add($i)
     {
@@ -45,7 +76,7 @@ class EditArsip extends Component
     }
 
 
-    public function store()
+    public function update()
     {
         // Validasi
         $this->validate($this->aturan, [
@@ -75,12 +106,12 @@ class EditArsip extends Component
         $data = json_encode($array);
         $user = auth()->user();
 
-        Ruangan::create([
-            'user_id' => $user->id,
+        $rab = Ruangan::find($this->idRab);
+        $rab->update([
             'data' => $data,
         ]);
-        session()->flash('message', 'RAB Berhasil dibuat.');
-        return redirect()->to('show-rab');
+        session()->flash('message', 'RAB Berhasil diubah.');
+        return redirect()->to('arsip-rab');
     }
 
     public function render()

@@ -60,6 +60,7 @@ class BuatRab extends Component
 
         ]);
 
+
         // Perbaikan Strukrut Array
         foreach ($this->posts as $key => $value) {
             $i = 0;

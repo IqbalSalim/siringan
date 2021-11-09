@@ -58,6 +58,7 @@
                             <select class="text-sm" wire:model.defer="posts.ruangan.0" required>
                                 <option>-- Pilih Ruangan --</option>
                                 <option value="Teras">Teras</option>
+                                <option value="Garasi">Garasi</option>
                                 <option value="Ruang Tamu">Ruang Tamu</option>
                                 <option value="Ruang Keluarga">Ruang Keluarga</option>
                                 <option value="Kamar">Kamar</option>

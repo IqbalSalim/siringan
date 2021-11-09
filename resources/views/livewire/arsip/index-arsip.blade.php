@@ -12,6 +12,11 @@
 
 
     <div class="px-4 py-12 md:px-6 lg:px-8">
+        @if (session()->has('message'))
+            <div class="block px-4 py-2 my-2 text-white bg-opacity-50 bg-success rounded-xl">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="w-full overflow-x-auto md:overflow-hidden">
                 <table class="min-w-full mt-2 divide-y divide-gray-200 table-auto">
@@ -56,11 +61,16 @@
                                 </td>
                                 <td class="px-2 md:px-6">
                                     <div class="flex flex-row items-center space-x-4">
-                                        <button wire:click.prevent="redRab({{ $rab->id }})" type="button"
-                                            class="text-xs btn-primary">detail</button>
-                                        <button wire:click.prevent="$emit('getrab', {{ $rab->id }})"
-                                            @click="modalEdit = true" type="button"
-                                            class="text-xs btn-info">edit</button>
+                                        <form action="{{ url('/detail-rab') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="idRab" value="{{ $rab->id }}">
+                                            <button type="submit" class="text-xs btn-primary">detail</button>
+                                        </form>
+                                        <form action="{{ url('/edit-rab') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="idRab" value="{{ $rab->id }}">
+                                            <button type="submit" class="text-xs btn-info">edit</button>
+                                        </form>
                                         <button wire:click.prevent="alertConfirm({{ $rab->id }})" type="button"
                                             class="text-xs btn-danger">hapus</button>
                                     </div>

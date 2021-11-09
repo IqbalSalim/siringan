@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Arsip\EditArsip;
 use App\Http\Livewire\Arsip\IndexArsip;
 use App\Http\Livewire\Arsip\ShowArsip;
 use App\Http\Livewire\ShowRab;
@@ -26,7 +27,9 @@ Route::get('buat-rab', function () {
 
 Route::get('show-rab', ShowRab::class)->name('show-rab');
 Route::get('arsip-rab', IndexArsip::class)->name('arsip-rab');
-Route::get('detail-rab', ShowArsip::class)->name('detail-rab');
+Route::post('detail-rab', ShowArsip::class)->name('detail-rab');
+// Route::get('edit-rab', EditArsip::class)->name('edit-rab');
+Route::post('edit-rab', EditArsip::class)->name('edit-rab');
 
 
 
