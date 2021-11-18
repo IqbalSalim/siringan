@@ -112,9 +112,14 @@
                             <span class="w-1/3 font-bold md:hidden">Ruangan</span>
                             <select class="text-sm" wire:model.defer="posts.ruangan.{{ $value }}">
                                 <option>-- Pilih Ruangan --</option>
+                                <option value="Teras">Teras</option>
+                                <option value="Garasi">Garasi</option>
+                                <option value="Ruang Tamu">Ruang Tamu</option>
+                                <option value="Ruang Keluarga">Ruang Keluarga</option>
                                 <option value="Kamar">Kamar</option>
                                 <option value="Dapur">Dapur</option>
-                                <option value="Ruang Tamu">Ruang Tamu</option>
+                                <option value="Kamar Mandi">Kamar Mandi</option>
+                                <option value="Ruang Santai/Kosong">Ruang Santai/Kosong</option>
                             </select>
                             @error('posts.ruangan.' . $value) <span
                                     class="block text-sm text-danger">{{ $message }}</span>

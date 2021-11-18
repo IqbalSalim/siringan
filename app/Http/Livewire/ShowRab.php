@@ -8,8 +8,8 @@ use Livewire\Component;
 
 class ShowRab extends Component
 {
-    public $rabs = [];
-    public $total = 0, $upah = 0;
+    public $rabs = [], $tabelUpah = [];
+    public $totalHargaBarang = 0, $totalUpah = 0;
 
     public function render()
     {
@@ -100,11 +100,19 @@ class ShowRab extends Component
                     $this->rabs[$k]['watt'] = $barang->watt;
                     $this->rabs[$k]['jumlah'] = $value['jumlah'];
                     $this->rabs[$k]['subTotal'] = $barang->harga * $value['jumlah'];
-                    $this->total = $this->total + $this->rabs[$k]['subTotal'];
-                    $this->upah = $this->upah + $barang->upah;
+                    if ($barang->upah !== null) {
+                        $this->tabelUpah[$k]['nama'] = $barang->nama;
+                        $this->tabelUpah[$k]['watt'] = $barang->watt;
+                        $this->tabelUpah[$k]['jumlah'] = $value['jumlah'];
+                        $this->tabelUpah[$k]['upah'] = $barang->upah;
+                        $this->tabelUpah[$k]['subTotal'] = $barang->upah * $value['jumlah'];
+                        $this->totalUpah = $this->totalUpah + $this->tabelUpah[$k]['subTotal'];
+                    }
+                    $this->totalHargaBarang = $this->totalHargaBarang + $this->rabs[$k]['subTotal'];
                 }
             }
         }
+
 
         return view('livewire.show-rab');
     }
