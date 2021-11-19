@@ -3,6 +3,9 @@
 use App\Http\Livewire\Arsip\EditArsip;
 use App\Http\Livewire\Arsip\IndexArsip;
 use App\Http\Livewire\Arsip\ShowArsip;
+use App\Http\Livewire\Barang\CreateBarang;
+use App\Http\Livewire\Barang\IndexBarang;
+use App\Http\Livewire\Barang\UpdateBarang;
 use App\Http\Livewire\ShowRab;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +33,9 @@ Route::get('arsip-rab', IndexArsip::class)->name('arsip-rab');
 Route::post('detail-rab', ShowArsip::class)->name('detail-rab');
 // Route::get('edit-rab', EditArsip::class)->name('edit-rab');
 Route::post('edit-rab', EditArsip::class)->name('edit-rab');
+Route::get('barang', IndexBarang::class)->name('barang');
+Route::get('create-barang', CreateBarang::class)->name('create-barang');
+Route::post('update-barang', UpdateBarang::class)->name('update-barang');
 
 
 
