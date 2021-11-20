@@ -18,4 +18,15 @@ class IndexArsip extends Component
         $this->rabs = Ruangan::where('user_id', Auth::user()->id)->get();
         return view('livewire.arsip.index-arsip');
     }
+
+    public function delete($id)
+    {
+        $rabs = Ruangan::find($id);
+        if ($rabs->user_id == auth()->user()->id) {
+            $rabs->delete();
+            session()->flash('message', 'RAB Berhasil dihapus.');
+        } else {
+            session()->flash('message', 'Anda tidak berhak menghapus RAB ini.');
+        }
+    }
 }

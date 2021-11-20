@@ -71,7 +71,7 @@
                                             <input type="hidden" name="idRab" value="{{ $rab->id }}">
                                             <button type="submit" class="text-xs btn-info">edit</button>
                                         </form>
-                                        <button wire:click.prevent="alertConfirm({{ $rab->id }})" type="button"
+                                        <button wire:click.prevent="delete({{ $rab->id }})" type="button"
                                             class="text-xs btn-danger">hapus</button>
                                     </div>
                                 </td>

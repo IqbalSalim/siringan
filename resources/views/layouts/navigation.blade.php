@@ -15,9 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('barang')" :active="request()->routeIs('barang')">
-                        {{ __('Barang') }}
-                    </x-nav-link>
+                    @hasrole('admin')
+                        <x-nav-link :href="route('barang')" :active="request()->routeIs('barang')">
+                            {{ __('Barang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    @endhasrole
                     <x-nav-link :href="route('buat-rab')" :active="request()->routeIs('buat-rab')">
                         {{ __('Buat RAB') }}
                     </x-nav-link>
