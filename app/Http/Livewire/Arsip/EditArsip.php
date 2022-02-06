@@ -44,11 +44,13 @@ class EditArsip extends Component
         $this->i = count($data) - 1;
         for ($i = 0; $i <= $this->i; $i++) {
             array_push($this->inputs, $i);
-            $this->posts['ruangan'][$i] = $data[$i]->ruangan;
+            $this->posts['ruangan'][$i] = '{"ruangan":"' . $data[$i]->ruangan . '", "lux": "' . $data[$i]->lux . '"}';
             $this->posts['panjang'][$i] = $data[$i]->panjang;
             $this->posts['lebar'][$i] = $data[$i]->lebar;
             $this->posts['tinggi'][$i] = $data[$i]->tinggi;
         }
+
+        // dd($this->posts);
     }
 
     public function add($i)
@@ -95,8 +97,15 @@ class EditArsip extends Component
         foreach ($this->posts as $key => $value) {
             $i = 0;
             // dd(array_values($value));
-            foreach ($value as $v) {
-                $array[$i][$key] = $v;
+            foreach ($value as $row) {
+                if ($key != "ruangan") {
+                    $array[$i][$key] = $row;
+                } else {
+                    $ruangan = json_decode($row)->ruangan;
+                    $lux = json_decode($row)->lux;
+                    $array[$i]["ruangan"] = $ruangan;
+                    $array[$i]["lux"] = $lux;
+                }
                 $i++;
             }
         }

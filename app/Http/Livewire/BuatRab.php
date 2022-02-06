@@ -45,9 +45,11 @@ class BuatRab extends Component
     }
 
 
+
     public function store()
     {
         // Validasi
+        // dd($this->posts);
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
             'posts.lebar.0.required' => 'Kolom Lebar Perlu diisi',
@@ -65,8 +67,15 @@ class BuatRab extends Component
         foreach ($this->posts as $key => $value) {
             $i = 0;
             // dd(array_values($value));
-            foreach ($value as $v) {
-                $array[$i][$key] = $v;
+            foreach ($value as $row) {
+                if ($key != "ruangan") {
+                    $array[$i][$key] = $row;
+                } else {
+                    $ruangan = json_decode($row)->ruangan;
+                    $lux = json_decode($row)->lux;
+                    $array[$i]["ruangan"] = $ruangan;
+                    $array[$i]["lux"] = $lux;
+                }
                 $i++;
             }
         }

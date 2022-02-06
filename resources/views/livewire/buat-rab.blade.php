@@ -57,14 +57,14 @@
                             <span class="w-1/3 font-bold md:hidden">Ruangan</span>
                             <select class="text-sm" wire:model.defer="posts.ruangan.0" required>
                                 <option>-- Pilih Ruangan --</option>
-                                <option value="Teras">Teras</option>
-                                <option value="Garasi">Garasi</option>
-                                <option value="Ruang Tamu">Ruang Tamu</option>
-                                <option value="Ruang Keluarga">Ruang Keluarga</option>
-                                <option value="Kamar">Kamar</option>
-                                <option value="Dapur">Dapur</option>
-                                <option value="Kamar Mandi">Kamar Mandi</option>
-                                <option value="Ruang Santai/Kosong">Ruang Santai/Kosong</option>
+                                <option value='{"ruangan":"Teras", "lux": "60"}'>Teras</option>
+                                <option value='{"ruangan":"Garasi", "lux": "60"}'>Garasi</option>
+                                <option value='{"ruangan":"Ruang Tamu", "lux": "250"}'>Ruang Tamu</option>
+                                <option value='{"ruangan":"Ruang Keluarga", "lux": "250"}'>Ruang Keluarga</option>
+                                <option value='{"ruangan":"Kamar", "lux": "250"}'>Kamar</option>
+                                <option value='{"ruangan":"Dapur", "lux": "250"}'>Dapur</option>
+                                <option value='{"ruangan":"Kamar Mandi", "lux": "250"}'>Kamar Mandi</option>
+                                <option value='{"ruangan":"Ruang Kerja", "lux": "250"}'>Ruang Santai/Kosong</option>
                             </select>
                             @error('posts.ruangan.0') <span class="block text-sm text-danger">{{ $message }}</span>
                             @enderror
@@ -93,6 +93,7 @@
                             <button type="button" class="hidden text-sm text-left md:flex btn-secondary"
                                 wire:click.defer="add({{ $i }})">Tambah</button>
                         </td>
+
                     </tr>
                     @foreach ($inputs as $key => $value)
 
@@ -112,14 +113,14 @@
                             <span class="w-1/3 font-bold md:hidden">Ruangan</span>
                             <select class="text-sm" wire:model.defer="posts.ruangan.{{ $value }}">
                                 <option>-- Pilih Ruangan --</option>
-                                <option value="Teras">Teras</option>
-                                <option value="Garasi">Garasi</option>
-                                <option value="Ruang Tamu">Ruang Tamu</option>
-                                <option value="Ruang Keluarga">Ruang Keluarga</option>
-                                <option value="Kamar">Kamar</option>
-                                <option value="Dapur">Dapur</option>
-                                <option value="Kamar Mandi">Kamar Mandi</option>
-                                <option value="Ruang Santai/Kosong">Ruang Santai/Kosong</option>
+                                <option value='{"ruangan":"Teras", "lux": "60"}'>Teras</option>
+                                <option value='{"ruangan":"Garasi", "lux": "60"}'>Garasi</option>
+                                <option value='{"ruangan":"Ruang Tamu", "lux": "250"}'>Ruang Tamu</option>
+                                <option value='{"ruangan":"Ruang Keluarga", "lux": "250"}'>Ruang Keluarga</option>
+                                <option value='{"ruangan":"Kamar", "lux": "250"}'>Kamar</option>
+                                <option value='{"ruangan":"Dapur", "lux": "250"}'>Dapur</option>
+                                <option value='{"ruangan":"Kamar Mandi", "lux": "250"}'>Kamar Mandi</option>
+                                <option value='{"ruangan":"Ruang Kerja", "lux": "250"}'>Ruang Santai/Kosong</option>
                             </select>
                             @error('posts.ruangan.' . $value) <span
                                     class="block text-sm text-danger">{{ $message }}</span>

@@ -23,14 +23,14 @@ class ShowRab extends Component
             $panjang = $data[$i]->panjang;
             $lebar = $data[$i]->lebar;
             $tinggi = $data[$i]->tinggi;
+            $lux = $data[$i]->lux;
             $barang_watt = [];
 
             // Menghitung Lampu
             $titikMataLampu = (($panjang * $lebar) <= 9) ? 1 : 2;
             $array = [$panjang, $lebar, $tinggi];
-            $luxruangan = 150;
 
-            $flux = (array_product($array) * 0.35 * $luxruangan) / $titikMataLampu;
+            $flux = (array_product($array) * 0.35 * $lux) / $titikMataLampu;
             // Item Lampu
             $watt = floor($flux / 70);
             $barangs = Barang::all();
@@ -50,11 +50,12 @@ class ShowRab extends Component
             // End Lampu
 
             // Kabel
-            $kabelAtasKeLampu = ($panjang >= $lebar) ? $panjang / 2 : $lebar / 2;
+            $kabelAtasKeLampu =  ($panjang >= $lebar) ? $panjang / 2 : $lebar / 2;
             if ($titikMataLampu === 2) {
                 $kabelAtasKeLampu = $kabelAtasKeLampu * 1.5;
             }
-            $kabelSaklarKeAtas = ($tinggi - 1.25) * ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? 2 : 4;
+
+            $kabelSaklarKeAtas = ($tinggi - 1.25) * (($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? 2 : 4);
             $jumlahKabel = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? $kabelAtasKeLampu * 2 : $kabelAtasKeLampu;
             $barang = Barang::where('jenis', 'NYM')->get();
             $item[$barang[0]->id] = array(
