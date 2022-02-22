@@ -1,4 +1,4 @@
-<div>
+<div x-cloak x-data="{modalDetail: false}">
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('RAB') }}
@@ -12,6 +12,7 @@
         </div>
     </x-slot>
 
+    <livewire:arsip.detail-arsip></livewire:arsip.detail-arsip>
     <div class="px-4 py-12 md:px-6 lg:px-8">
         @if (session()->has('message'))
             <div class="block px-4 py-2 my-2 text-white bg-opacity-50 bg-success rounded-xl">
@@ -20,9 +21,14 @@
         @endif
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="flex flex-row justify-between">
-                <button class="text-sm btn-primary">Cetak</button>
+                <div class="flex flex-row space-x-4">
+                    <button class="text-sm btn-primary" onclick="window.print()">Cetak</button>
+                    <button class="text-sm btn-warning" @click="modalDetail = true"
+                        wire:click="$emit('getRuangan', {{ $idRab }})">Detail</button>
+                </div>
                 <a href="/dashboard" class="text-sm btn-info">Kembali ke dashboard</a>
             </div>
+
             <h2 class="pt-3 font-medium">Tabel Barang</h2>
             <div class="w-full overflow-x-auto md:overflow-hidden">
                 <table class="min-w-full mt-2 divide-y divide-gray-200 table-auto">

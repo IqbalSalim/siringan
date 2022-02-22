@@ -1,4 +1,4 @@
-<div>
+<div x-cloak x-data="{modalDetail: false}">
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Detail RAB') }}
@@ -11,12 +11,17 @@
             <div>Detail RAB</div>
         </div>
     </x-slot>
+    <livewire:arsip.detail-arsip></livewire:arsip.detail-arsip>
 
     <div class="px-4 py-12 md:px-6 lg:px-8">
 
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="flex flex-row justify-between">
-                <button class="text-sm btn-primary">Cetak</button>
+                <div class="flex flex-row space-x-4">
+                    <button class="text-sm btn-primary" onclick="window.print()">Cetak</button>
+                    <button class="text-sm btn-warning" @click="modalDetail = true"
+                        wire:click="$emit('getRuangan', {{ $idRab }})">Detail</button>
+                </div>
                 <a href="{{ route('arsip-rab') }}" class="text-sm btn-info">Kembali ke arsip RAB</a>
             </div>
             <h2 class="pt-3 font-medium">Tabel Barang</h2>

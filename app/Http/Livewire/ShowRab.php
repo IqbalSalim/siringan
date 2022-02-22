@@ -9,12 +9,13 @@ use Livewire\Component;
 class ShowRab extends Component
 {
     public $rabs = [], $tabelUpah = [];
-    public $totalHargaBarang = 0, $totalUpah = 0;
+    public $totalHargaBarang = 0, $totalUpah = 0, $idRab;
 
     public function render()
     {
         $user = auth()->user();
         $result = Ruangan::where('user_id', $user->id)->orderBy('created_at', 'desc')->limit(1)->get();
+        $this->idRab = $result[0]->id;
         $data = json_decode($result[0]->data);
 
         for ($i = 0; $i < count($data); $i++) {
@@ -28,25 +29,30 @@ class ShowRab extends Component
 
             // Menghitung Lampu
             $titikMataLampu = (($panjang * $lebar) <= 9) ? 1 : 2;
-            $array = [$panjang, $lebar, $tinggi];
+            $array = [$panjang, $lebar];
 
             $flux = (array_product($array) * 0.35 * $lux) / $titikMataLampu;
             // Item Lampu
             $watt = floor($flux / 70);
+
             $barangs = Barang::all();
+            $watts = Barang::where('watt', '!=', null)->orderBy('watt')->get();
 
-
-            foreach ($barangs as $barang) {
-                $barang_watt[$barang->watt] = [abs($barang->watt - $watt), $barang->id];
+            for ($i = 0; $i < count($watts); $i++) {
+                if ($watt > $watts[$i]->watt and isset($watts[$i + 1])) {
+                    $id_barang = $watts[$i + 1]->id;
+                }
             }
-            asort($barang_watt);
+            if ($watt <= $watts[0]->watt) {
+                $id_barang = $watts[0]->id;
+            }
 
-            $itemWatt = reset($barang_watt);
-            $id_barang = $itemWatt[1];
+
 
             $item[$id_barang] = array(
                 'jumlah' => (isset($item[$id_barang])) ? $item[$id_barang]['jumlah'] + $titikMataLampu : $titikMataLampu,
             );
+            // dd($item[$id_barang]);
             // End Lampu
 
             // Kabel
@@ -91,7 +97,7 @@ class ShowRab extends Component
         // EndPipa
 
 
-        $barangs = Barang::all();
+        $wattsbarangs = Barang::all();
         foreach ($barangs as $k =>  $barang) {
             foreach ($item as $key => $value) {
                 if ($key === $barang->id) {

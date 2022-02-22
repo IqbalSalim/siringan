@@ -37,22 +37,24 @@ class ShowArsip extends Component
 
             // Menghitung Lampu
             $titikMataLampu = (($panjang * $lebar) <= 9) ? 1 : 2;
-            $array = [$panjang, $lebar, $tinggi];
+            $array = [$panjang, $lebar];
 
 
             $flux = (array_product($array) * 0.35 * $lux) / $titikMataLampu;
             // Item Lampu
             $watt = floor($flux / 70);
+
             $barangs = Barang::all();
+            $watts = Barang::where('watt', '!=', null)->orderBy('watt')->get();
 
-
-            foreach ($barangs as $barang) {
-                $barang_watt[$barang->watt] = [abs($barang->watt - $watt), $barang->id];
+            for ($i = 0; $i < count($watts); $i++) {
+                if ($watt > $watts[$i]->watt and isset($watts[$i + 1])) {
+                    $id_barang = $watts[$i + 1]->id;
+                }
             }
-            asort($barang_watt);
-
-            $itemWatt = reset($barang_watt);
-            $id_barang = $itemWatt[1];
+            if ($watt <= $watts[0]->watt) {
+                $id_barang = $watts[0]->id;
+            }
 
             $item[$id_barang] = array(
                 'jumlah' => (isset($item[$id_barang])) ? $item[$id_barang]['jumlah'] + $titikMataLampu : $titikMataLampu,

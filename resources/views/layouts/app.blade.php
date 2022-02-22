@@ -16,6 +16,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <style>
+        [x-cloak] {
+            display: none
+        }
+
+    </style>
 </head>
 
 <body class="font-sans antialiased">

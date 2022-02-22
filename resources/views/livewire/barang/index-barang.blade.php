@@ -18,7 +18,7 @@
         @endif
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="py-2 border-b-2 border-gray-200">
-                <button wire:click.prevent="add()" class="text-sm btn-primary" type="button">Tambah Barang</button>
+                <a href="{{ url('create-barang') }}" class="text-sm btn-primary">Tambah Barang</a>
             </div>
             <div class="flex flex-row items-center justify-between py-2">
                 <div>

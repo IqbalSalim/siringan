@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 class IndexBarang extends Component
 {
     use WithPagination;
-    public $paginate = 5, $search, $event;
+    public $paginate = 10, $search, $event;
     protected $queryString = ['search'];
 
 
@@ -24,7 +24,7 @@ class IndexBarang extends Component
 
     public function add()
     {
-        redirect()->route('create-barang');
+        return route('create-barang');
     }
 
     public function delete($id)
