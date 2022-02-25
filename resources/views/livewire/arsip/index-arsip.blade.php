@@ -4,8 +4,6 @@
             {{ __('Arsip RAB') }}
         </h2>
         <div class="flex flex-row space-x-1 text-sm text-gray-400">
-            <div class="hover:text-primary"><a href="/dashboard">Dashboard</a></div>
-            <div>-</div>
             <div>Arsip RAB</div>
         </div>
     </x-slot>

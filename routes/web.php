@@ -6,6 +6,7 @@ use App\Http\Livewire\Arsip\ShowArsip;
 use App\Http\Livewire\Barang\CreateBarang;
 use App\Http\Livewire\Barang\IndexBarang;
 use App\Http\Livewire\Barang\UpdateBarang;
+use App\Http\Livewire\BuatRab;
 use App\Http\Livewire\ShowRab;
 use App\Http\Livewire\User\IndexUser;
 use Illuminate\Support\Facades\Route;
@@ -27,10 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('buat-rab', function () {
-    return view('buat-rab');
-})->name('buat-rab');
-
+Route::get('buat-rab', BuatRab::class)->name('buat-rab');
 Route::get('show-rab', ShowRab::class)->name('show-rab');
 Route::get('arsip-rab', IndexArsip::class)->name('arsip-rab');
 Route::post('detail-rab', ShowArsip::class)->name('detail-rab');
@@ -41,9 +39,5 @@ Route::get('create-barang', CreateBarang::class)->name('create-barang');
 Route::post('update-barang', UpdateBarang::class)->name('update-barang');
 
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

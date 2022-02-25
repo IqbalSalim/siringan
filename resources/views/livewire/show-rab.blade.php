@@ -4,8 +4,6 @@
             {{ __('RAB') }}
         </h2>
         <div class="flex flex-row space-x-1 text-sm text-gray-400">
-            <div class="hover:text-primary"><a href="/dashboard">Dashboard</a></div>
-            <div>-</div>
             <div class="hover:text-primary"><a href="/buat-rab">Buat RAB</a></div>
             <div>-</div>
             <div>RAB</div>
@@ -26,7 +24,7 @@
                     <button class="text-sm btn-warning" @click="modalDetail = true"
                         wire:click="$emit('getRuangan', {{ $idRab }})">Detail</button>
                 </div>
-                <a href="/dashboard" class="text-sm btn-info">Kembali ke dashboard</a>
+                <a href="/arsip-rab" class="text-sm btn-info">Kembali ke arsip</a>
             </div>
 
             <h2 class="pt-3 font-medium">Tabel Barang</h2>
