@@ -32,7 +32,7 @@ Route::get('buat-rab', BuatRab::class)->name('buat-rab');
 Route::get('show-rab', ShowRab::class)->name('show-rab');
 Route::get('arsip-rab', IndexArsip::class)->name('arsip-rab');
 Route::post('detail-rab', ShowArsip::class)->name('detail-rab');
-Route::post('edit-rab', EditArsip::class)->name('edit-rab');
+Route::get('edit-rab/{id}', EditArsip::class)->name('edit-rab');
 Route::get('barang', IndexBarang::class)->name('barang');
 Route::get('user', IndexUser::class)->name('user');
 Route::get('create-barang', CreateBarang::class)->name('create-barang');

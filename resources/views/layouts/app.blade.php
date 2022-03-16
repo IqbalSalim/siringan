@@ -42,6 +42,22 @@
         </main>
     </div>
     @livewireScripts
+    <script>
+        window.addEventListener('swal:confirm', event => {
+            swal({
+                    title: event.detail.message,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willStore) => {
+                    if (willStore) {
+                        window.livewire.emit('store');
+                    }
+                });
+        });
+    </script>
 </body>
 
 </html>

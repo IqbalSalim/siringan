@@ -11,7 +11,7 @@
 
     <div class="px-4 py-12 md:px-6 lg:px-8">
         <div class="px-4 py-3 bg-white rounded-lg shadow-lg">
-            <form wire:submit.prevent='store' novalidate>
+            <form wire:submit.prevent='confirm' novalidate>
                 <div class="py-2 font-medium">
                     Form RAB
                 </div>
@@ -30,8 +30,9 @@
                         wire:click.defer="add({{ $i }})">Tambah</button>
                 </div>
                 <div class="divide-y-2 divide-gray-100 ">
-                    <table class="block min-w-full divide-y divide-gray-200 table-fixed md:table">
-                        <thead class="block bg-gray-50 md:table-header-group">
+                    <table x-cloak x-data="{count : @entangle('count')}"
+                        class="block min-w-full divide-y divide-gray-200 table-fixed md:table">
+                        <thead x-show="count >= 1" class="block bg-gray-50 md:table-header-group">
                             <tr
                                 class="absolute block md:table-row -top-full md:top-auto -left-full md:left-auto md:relative">
                                 <th scope="col"
@@ -147,7 +148,7 @@
                     </table>
 
                 </div>
-                <div class="flex flex-row justify-center px-4 py-2 space-x-4 md:space-x-0">
+                <div class="flex flex-row justify-end px-4 py-2 space-x-4 md:space-x-0">
                     {{-- <button type="submit" class="text-sm btn-primary">Simpan</button> --}}
 
                     <button x-show="simpan" type="submit" class="text-sm btn-primary">Simpan</button>

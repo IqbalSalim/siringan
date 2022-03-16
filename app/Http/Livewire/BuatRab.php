@@ -12,12 +12,14 @@ class BuatRab extends Component
     public $posts;
     public $inputs = [];
     public $i = -1;
+    public $count;
 
     public $aturan = [];
 
-    public function mount()
-    {
-    }
+    protected $listeners = [
+        'store'
+    ];
+
 
     public function add($i)
     {
@@ -30,7 +32,7 @@ class BuatRab extends Component
         $this->aturan['posts.ruangan.' . $i] = 'required';
         $this->aturan['posts.cheklist.' . $i] = '';
 
-        // dd($this->aturan);
+        $this->count = count($this->inputs);
     }
 
     public function remove($i, $j)
@@ -42,16 +44,12 @@ class BuatRab extends Component
             $this->aturan['posts.ruangan.' . $j],
         );
         unset($this->inputs[$i]);
+        $this->count = count($this->inputs);
     }
 
 
-
-    public function store()
+    public function confirm()
     {
-
-        // dd($this->posts['cheklist']);
-        // Validasi
-        // dd($this->posts);
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
             'posts.lebar.0.required' => 'Kolom Lebar Perlu diisi',
@@ -64,8 +62,15 @@ class BuatRab extends Component
 
         ]);
 
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'message' => 'Apakah Anda Yakin?',
+            // 'text' => 'Jika dihapus, Anda tidak akan dapat mengembalikan data user ini!'
+        ]);
+    }
 
-
+    public function store()
+    {
         // Perbaikan Strukrut Array
         foreach ($this->posts as $key => $value) {
             $i = 0;
@@ -126,13 +131,6 @@ class BuatRab extends Component
         } else {
             return $this->dispatchBrowserEvent('open-simpan');
         }
-        // dd($this->posts);
-        // if (isset($this->posts['cheklist'])) {
-        // }
-        // foreach ($this->posts['cheklist'] as $row) {
-        //     dd($row);
-        // }
-        // if($this->posts['cheklist'][$i] == true)
     }
 
     public function render()

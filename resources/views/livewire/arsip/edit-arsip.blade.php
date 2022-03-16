@@ -16,7 +16,7 @@
             <div class="px-4 py-3 bg-white divide-y-2 divide-gray-200 rounded-lg shadow-lg">
                 <div class="flex flex-row justify-between py-2">
                     <h1 class="font-medium text-default">Form RAB</h1>
-                    <a href="edit-rab" class="text-sm btn-info">Refresh</a>
+                    <a href="{{ route('edit-rab', $idRab) }}" class="text-sm btn-info">Refresh</a>
                 </div>
                 <div class="flex flex-row items-end justify-between py-2 space-x-4">
                     {{-- <div class="flex flex-col items-start flex-1 space-y-2 md:items-center md:flex-row md:space-x-4">
@@ -62,7 +62,6 @@
                         </thead>
                         <tbody class="block bg-white divide-y divide-gray-200 md:table-row-group">
                             @foreach ($inputs as $key => $value)
-
                                 @if ($value % 2 !== 0)
                                     <tr
                                         class="flex flex-col py-2 space-y-2 bg-gray-100 md:py-0 md:space-y-0 md:flex-none md:table-row">
@@ -92,8 +91,8 @@
                                         <option value='{"ruangan":"Ruang Kerja", "lux": "250"}'>Ruang Santai/Kosong
                                         </option>
                                     </select>
-                                    @error('posts.ruangan.' . $value) <span
-                                            class="block text-sm text-danger">{{ $message }}</span>
+                                    @error('posts.ruangan.' . $value)
+                                        <span class="block text-sm text-danger">{{ $message }}</span>
                                     @enderror
 
                                 </td>
@@ -102,8 +101,8 @@
                                     <span class="w-1/3 font-bold md:hidden">Panjang</span>
                                     <input type="number" class="text-sm" min="0"
                                         wire:model.defer="posts.panjang.{{ $value }}">
-                                    @error('posts.panjang.' . $value) <span
-                                            class="block text-sm text-danger">{{ $message }}</span>
+                                    @error('posts.panjang.' . $value)
+                                        <span class="block text-sm text-danger">{{ $message }}</span>
                                     @enderror
                                 </td>
                                 <td
@@ -111,8 +110,8 @@
                                     <span class="w-1/3 font-bold md:hidden">Lebar</span>
                                     <input type="number" class="text-sm" min="0"
                                         wire:model.defer="posts.lebar.{{ $value }}">
-                                    @error('posts.lebar.' . $value) <span
-                                            class="block text-sm text-danger">{{ $message }}</span>
+                                    @error('posts.lebar.' . $value)
+                                        <span class="block text-sm text-danger">{{ $message }}</span>
                                     @enderror
                                 </td>
                                 <td
@@ -120,8 +119,8 @@
                                     <span class="w-1/3 font-bold md:hidden">Tinggi</span>
                                     <input type="number" class="text-sm" min="0"
                                         wire:model.defer="posts.tinggi.{{ $value }}">
-                                    @error('posts.tinggi.' . $value) <span
-                                            class="block text-sm text-danger">{{ $message }}</span>
+                                    @error('posts.tinggi.' . $value)
+                                        <span class="block text-sm text-danger">{{ $message }}</span>
                                     @enderror
                                 </td>
                                 <td

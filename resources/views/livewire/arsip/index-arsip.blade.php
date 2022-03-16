@@ -64,11 +64,10 @@
                                             <input type="hidden" name="idRab" value="{{ $rab->id }}">
                                             <button type="submit" class="text-xs btn-primary">detail</button>
                                         </form>
-                                        <form action="{{ url('/edit-rab') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="idRab" value="{{ $rab->id }}">
-                                            <button type="submit" class="text-xs btn-info">edit</button>
-                                        </form>
+
+
+                                        <a href="{{ route('edit-rab', $rab->id) }}" type="submit"
+                                            class="text-xs btn-info">edit</a>
                                         <button wire:click.prevent="delete({{ $rab->id }})" type="button"
                                             class="text-xs btn-danger">hapus</button>
                                     </div>

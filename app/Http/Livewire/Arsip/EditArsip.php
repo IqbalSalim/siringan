@@ -32,11 +32,10 @@ class EditArsip extends Component
     //     dd('oke disnini');
     // }
 
-    public function mount(Request $req)
+    public function mount($id)
     {
 
 
-        $id =  $req->idRab;
         $this->idRab = $id;
         $rabs = Ruangan::find($id);
         // dd(json_decode($rabs->data)[0]->panjang);
