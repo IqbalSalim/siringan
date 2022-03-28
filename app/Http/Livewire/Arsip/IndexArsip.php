@@ -15,7 +15,7 @@ class IndexArsip extends Component
     public function render()
     {
 
-        $this->rabs = Ruangan::where('user_id', Auth::user()->id)->get();
+        $this->rabs = Ruangan::where('user_id', Auth::user()->id)->latest()->get();
         return view('livewire.arsip.index-arsip');
     }
 

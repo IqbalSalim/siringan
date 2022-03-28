@@ -1,10 +1,10 @@
 <div>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Barang') }}
+            {{ __('Bahan') }}
         </h2>
         <div class="flex flex-row space-x-1 text-sm text-gray-400">
-            <div>Barang</div>
+            <div>Bahan</div>
         </div>
     </x-slot>
 
@@ -16,7 +16,7 @@
         @endif
         <div class="px-4 py-4 bg-white rounded-lg shadow-lg">
             <div class="py-2 border-b-2 border-gray-200">
-                <a href="{{ url('create-barang') }}" class="text-sm btn-primary">Tambah Barang</a>
+                <a href="{{ url('create-barang') }}" class="text-sm btn-primary">Tambah Bahan</a>
             </div>
             <div class="flex flex-row items-center justify-between py-2">
                 <div>

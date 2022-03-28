@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Barang') }}
+            {{ __('Bahan') }}
         </h2>
         <div class="flex flex-row space-x-1 text-sm text-gray-400">
             <div class="hover:text-primary"><a href="/dashboard">Dashboard</a></div>
@@ -18,12 +18,12 @@
                 @csrf
                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">
-                        Form Barang
+                        Form Bahan
                     </h3>
 
                     <div class="mt-2">
                         <p class="text-sm leading-5 text-primary">
-                            silahkan isi data barang
+                            silahkan isi data bahan
                         </p>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <div>
                         <x-label for="kategori" :value="__('Kategori')" />
                         <select class="text-sm" wire:change='changeEvent($event.target.value)'>
-                            <option>-- Pilih Kategori Barang --</option>
+                            <option>-- Pilih Kategori Bahan --</option>
                             <option value="Lampu">Lampu</option>
                             <option value="Kabel">Kabel</option>
                             <option value="PIP">Pipa</option>

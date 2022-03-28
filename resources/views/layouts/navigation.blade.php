@@ -17,7 +17,7 @@
                     </x-nav-link>
                     @hasrole('admin')
                         <x-nav-link :href="route('barang')" :active="request()->routeIs('barang')">
-                            {{ __('Barang') }}
+                            {{ __('Bahan') }}
                         </x-nav-link>
                         <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
                             {{ __('User') }}
