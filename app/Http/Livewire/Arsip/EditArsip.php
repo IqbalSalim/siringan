@@ -14,7 +14,7 @@ class EditArsip extends Component
     public $updateMode = false;
     public $posts;
     public $inputs = [];
-    public $i, $idRab;
+    public $i, $idRab, $namaRumah;
     protected $listeners = ['coba' => 'render'];
 
 
@@ -38,6 +38,7 @@ class EditArsip extends Component
 
         $this->idRab = $id;
         $rabs = Ruangan::find($id);
+        $this->namaRumah = $rabs->nama_rumah;
         // dd(json_decode($rabs->data)[0]->panjang);
         $data = json_decode($rabs->data);
         $this->i = count($data) - 1;
@@ -79,6 +80,7 @@ class EditArsip extends Component
 
     public function update()
     {
+        $this->aturan['namaRumah'] = 'required|string';
         // Validasi
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
@@ -89,6 +91,7 @@ class EditArsip extends Component
             'posts.lebar.*.required' => 'Kolom Lebar Perlu diisi',
             'posts.tinggi.*.required' => 'Kolom Tinggi Perlu diisi',
             'posts.ruangan.*.required' => 'Kolom Ruangan Perlu diisi',
+            'namaRumah' => 'Nama Rumah Perlu diisi'
 
         ]);
 
@@ -117,6 +120,7 @@ class EditArsip extends Component
         $rab = Ruangan::find($this->idRab);
         $rab->update([
             'data' => $data,
+            'nama_rumah' => $this->namaRumah
         ]);
         session()->flash('message', 'RAB Berhasil diubah.');
         return redirect()->to('arsip-rab');

@@ -18,17 +18,18 @@
                     <h1 class="font-medium text-default">Form RAB</h1>
                     <a href="{{ route('edit-rab', $idRab) }}" class="text-sm btn-info">Refresh</a>
                 </div>
-                <div class="flex flex-row items-end justify-between py-2 space-x-4">
-                    {{-- <div class="flex flex-col items-start flex-1 space-y-2 md:items-center md:flex-row md:space-x-4">
-                <label class="text-sm font-medium">Jenis Bangunan</label>
-                <select class="text-sm capitalize md:w-2/12 text-default">
-                    <option value="rumah">rumah</option>
-                    <option value="gedung">gedung</option>
-                </select>
-            </div> --}}
+                <div x-show="count >= 1" class="py-2">
+                    <x-label for="namaRumah" :value="__('Nama Rumah')" />
 
+                    <x-input wire:model.defer="namaRumah" class="block w-full mt-1" type="text" name="namaRumah" />
+                    <span class="text-xs text-red-600">
+                        @error('namaRumah')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="divide-y-2 divide-gray-100 ">
+
                     <table class="block min-w-full divide-y divide-gray-200 table-fixed md:table">
                         <thead class="block bg-gray-50 md:table-header-group">
                             <tr

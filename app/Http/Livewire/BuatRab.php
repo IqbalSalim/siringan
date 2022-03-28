@@ -13,6 +13,7 @@ class BuatRab extends Component
     public $inputs = [];
     public $i = -1;
     public $count;
+    public $namaRumah;
 
     public $aturan = [];
 
@@ -50,6 +51,7 @@ class BuatRab extends Component
 
     public function confirm()
     {
+        $this->aturan['namaRumah'] = 'required|string';
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
             'posts.lebar.0.required' => 'Kolom Lebar Perlu diisi',
@@ -59,7 +61,7 @@ class BuatRab extends Component
             'posts.lebar.*.required' => 'Kolom Lebar Perlu diisi',
             'posts.tinggi.*.required' => 'Kolom Tinggi Perlu diisi',
             'posts.ruangan.*.required' => 'Kolom Ruangan Perlu diisi',
-
+            'namaRumah' => 'Nama Rumah Perlu diisi'
         ]);
 
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -74,9 +76,6 @@ class BuatRab extends Component
         // Perbaikan Strukrut Array
         foreach ($this->posts as $key => $value) {
             $i = 0;
-
-
-
             foreach ($value as $row) {
 
                 if ($key != "ruangan") {
@@ -107,6 +106,7 @@ class BuatRab extends Component
 
         Ruangan::create([
             'user_id' => $user->id,
+            'nama_rumah' => $this->namaRumah,
             'data' => $data,
         ]);
         session()->flash('message', 'RAB Berhasil dibuat.');

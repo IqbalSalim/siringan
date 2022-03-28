@@ -1,4 +1,4 @@
-<div x-cloak x-data="{ simpan: false, tambah: false }" x-on:close-simpan.window="simpan = false" x-on:open-simpan.window="simpan = true">
+<div x-cloak x-data="{ simpan: false, tambah: false, count: @entangle('count') }" x-on:close-simpan.window="simpan = false" x-on:open-simpan.window="simpan = true">
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Buat RAB') }}
@@ -25,8 +25,17 @@
                 </div>
             </div>
             <div class="divide-y-2 divide-gray-100 ">
-                <table x-cloak x-data="{ count: @entangle('count') }"
-                    class="block min-w-full divide-y divide-gray-200 table-fixed md:table">
+                <div x-show="count >= 1" class="py-2">
+                    <x-label for="namaRumah" :value="__('Nama Rumah')" />
+
+                    <x-input wire:model.defer="namaRumah" class="block w-full mt-1" type="text" name="namaRumah" />
+                    <span class="text-xs text-red-600">
+                        @error('namaRumah')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                </div>
+                <table class="block min-w-full divide-y divide-gray-200 table-fixed md:table">
                     <thead x-show="count >= 1" class="block bg-gray-50 md:table-header-group">
                         <tr
                             class="absolute block md:table-row -top-full md:top-auto -left-full md:left-auto md:relative">

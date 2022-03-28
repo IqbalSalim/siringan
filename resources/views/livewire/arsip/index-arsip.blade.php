@@ -29,6 +29,10 @@
                                 Tanggal Dibuat
                             </th>
                             <th scope="col"
+                                class="w-3/12 px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                Nama Rumah
+                            </th>
+                            <th scope="col"
                                 class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Rincian Ruangan
                             </th>
@@ -48,6 +52,9 @@
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
                                     {{ $rab->created_at }}
+                                </td>
+                                <td class="px-2 py-4 md:px-6">
+                                    {{ $rab->nama_rumah }}
                                 </td>
                                 <td class="px-2 py-4 text-xs md:px-6">
                                     @php

@@ -17,6 +17,7 @@ class CreateRuangansTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('data')->nullable();
+            $table->string('nama_rumah');
             $table->timestamps();
         });
     }

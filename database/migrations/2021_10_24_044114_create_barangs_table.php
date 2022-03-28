@@ -17,8 +17,10 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->integer('watt')->nullable();
+            $table->string('jenis')->nullable();
             $table->string('satuan');
             $table->integer('harga');
+            $table->integer('upah')->nullable();
             $table->timestamps();
         });
     }

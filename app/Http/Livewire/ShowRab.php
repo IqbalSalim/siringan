@@ -18,6 +18,8 @@ class ShowRab extends Component
         $this->idRab = $result[0]->id;
         $data = json_decode($result[0]->data);
 
+
+
         for ($i = 0; $i < count($data); $i++) {
 
             $ruangan = $data[$i]->ruangan;
