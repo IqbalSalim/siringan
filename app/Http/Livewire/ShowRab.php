@@ -20,13 +20,14 @@ class ShowRab extends Component
 
 
 
-        for ($i = 0; $i < count($data); $i++) {
 
-            $ruangan = $data[$i]->ruangan;
-            $panjang = $data[$i]->panjang;
-            $lebar = $data[$i]->lebar;
-            $tinggi = $data[$i]->tinggi;
-            $lux = $data[$i]->lux;
+        foreach ($data as $row) {
+
+            $ruangan = $row->ruangan;
+            $panjang = $row->panjang;
+            $lebar = $row->lebar;
+            $tinggi = $row->tinggi;
+            $lux = $row->lux;
             $barang_watt = [];
 
             // Menghitung Lampu
