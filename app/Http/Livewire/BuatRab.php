@@ -101,7 +101,7 @@ class BuatRab extends Component
 
 
         // Pemyimpanan Array disini
-        $data = json_encode($array);
+        $data = json_encode($new_array);
         $user = auth()->user();
 
         Ruangan::create([
