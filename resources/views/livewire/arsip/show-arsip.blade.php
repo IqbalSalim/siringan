@@ -1,4 +1,4 @@
-<div x-cloak x-data="{modalDetail: false}">
+<div x-cloak x-data="{ modalDetail: false }">
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Detail RAB') }}
@@ -34,23 +34,23 @@
                                 #
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase w-4/12px-2 md:px-6">
                                 Nama Barang
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Jumlah
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Satuan
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Harga
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Sub Total
                             </th>
                         </tr>
@@ -78,10 +78,10 @@
                                     {{ $rab['satuan'] }}
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
-                                    {{ $rab['harga'] }}
+                                    {{ currency_IDR($rab['harga']) }}
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
-                                    {{ $rab['subTotal'] }}
+                                    {{ currency_IDR($rab['subTotal']) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -90,7 +90,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="5" class="pr-4 font-semibold text-right">Total Harga Barang</td>
-                            <td class="px-2 py-4 md:px-6">{{ $totalHargaBarang }}</td>
+                            <td class="px-2 py-4 md:px-6">{{ currency_IDR($totalHargaBarang) }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -106,19 +106,19 @@
                                 #
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="w-6/12 px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Nama Barang
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Jumlah
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Upah
                             </th>
                             <th scope="col"
-                                class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
+                                class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Sub Total
                             </th>
                         </tr>
@@ -143,10 +143,10 @@
                                     {{ $row['jumlah'] }}
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
-                                    {{ $row['upah'] }}
+                                    {{ currency_IDR($row['upah']) }}
                                 </td>
                                 <td class="px-2 py-4 md:px-6">
-                                    {{ $row['subTotal'] }}
+                                    {{ currency_IDR($row['subTotal']) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -155,12 +155,14 @@
                     <tfoot>
                         <tr>
                             <td colspan="4" class="pr-4 font-semibold text-right">Total Upah</td>
-                            <td class="px-2 py-4 md:px-6">{{ $totalUpah }}</td>
+                            <td class="px-2 py-4 md:px-6">{{ currency_IDR($totalUpah) }}</td>
                         </tr>
                         <tr>
                             <td colspan="4" class="pr-4 font-semibold text-right">Total = Total Harga Barang + Total
                                 Upah</td>
-                            <td class="px-2 py-4 text-green-600 md:px-6">{{ $totalUpah + $totalHargaBarang }}</td>
+                            <td class="px-2 py-4 text-green-600 md:px-6">
+                                {{ currency_IDR($totalUpah + $totalHargaBarang) }}
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
