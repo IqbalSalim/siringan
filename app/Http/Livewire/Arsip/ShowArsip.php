@@ -26,13 +26,13 @@ class ShowArsip extends Component
         $result = Ruangan::find($this->idRab);
         $data = json_decode($result->data);
 
-        for ($i = 0; $i < count($data); $i++) {
+        foreach ($data as $row) {
 
-            $ruangan = $data[$i]->ruangan;
-            $panjang = $data[$i]->panjang;
-            $lebar = $data[$i]->lebar;
-            $tinggi = $data[$i]->tinggi;
-            $lux = $data[$i]->lux;
+            $ruangan = $row->ruangan;
+            $panjang = $row->panjang;
+            $lebar = $row->lebar;
+            $tinggi = $row->tinggi;
+            $lux = $row->lux;
             $barang_watt = [];
 
             // Menghitung Lampu

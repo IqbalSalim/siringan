@@ -18,9 +18,6 @@ class ShowRab extends Component
         $this->idRab = $result[0]->id;
         $data = json_decode($result[0]->data);
 
-
-
-
         foreach ($data as $row) {
 
             $ruangan = $row->ruangan;
@@ -49,6 +46,7 @@ class ShowRab extends Component
             if ($watt <= $watts[0]->watt) {
                 $id_barang = $watts[0]->id;
             }
+
 
 
 
