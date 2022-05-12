@@ -73,7 +73,7 @@ class BuatRab extends Component
 
     public function store()
     {
-        dd(json_decode($this->posts['ruangan'][0])->ruangan);
+
         // Perbaikan Strukrut Array
         foreach ($this->posts as $key => $value) {
             $i = 0;
