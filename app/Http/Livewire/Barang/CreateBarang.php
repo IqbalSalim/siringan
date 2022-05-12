@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class CreateBarang extends Component
 {
-    public $kategori, $nama, $satuan, $harga, $watt, $jenis, $upah;
+    public $kategori, $nama, $satuan, $harga, $watt, $jenis, $upah = null;
 
     public function render()
     {
@@ -26,13 +26,11 @@ class CreateBarang extends Component
             $this->watt = 'String';
             if ($value == 'Saklar') {
                 $this->upah = null;
-            } else {
-                $this->upah = 9999;
             }
         } else {
             $this->watt = 'String';
             $this->jenis = 'String';
-            $this->upah = 9999;
+            $this->upah = null;
         }
     }
 
@@ -68,7 +66,22 @@ class CreateBarang extends Component
         } else if ($this->kategori == 'Saklar') {
             Barang::create([
                 'nama' => $this->nama,
-                'jenis' => $this->jenis,
+                'jenis' => 'S1',
+                'satuan' => $this->satuan,
+                'harga' => $this->harga,
+                'upah' => $this->upah,
+            ]);
+        } else if ($this->kategori == 'AC') {
+            Barang::create([
+                'nama' => $this->nama,
+                'jenis' => $this->kategori,
+                'satuan' => $this->satuan,
+                'harga' => $this->harga,
+            ]);
+        } else if ($this->kategori == 'StopKontak') {
+            Barang::create([
+                'nama' => $this->nama,
+                'jenis' => $this->kategori,
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,

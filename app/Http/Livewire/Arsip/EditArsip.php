@@ -130,4 +130,9 @@ class EditArsip extends Component
     {
         return view('livewire.arsip.edit-arsip');
     }
+
+    public function changeEvent()
+    {
+        return true;
+    }
 }

@@ -21,14 +21,14 @@
                 </div>
                 <div class="self-end">
                     <button @click="tambah=true" type="button" class="hidden float-right text-sm md:flex btn-secondary"
-                        wire:click.defer="add({{ $i }})">Tambah</button>
+                        wire:click.prevent="add({{ $i }})">Tambah</button>
                 </div>
             </div>
             <div class="divide-y-2 divide-gray-100 ">
                 <div x-show="count >= 1" class="py-2">
                     <x-label for="namaRumah" :value="__('Nama Rumah')" />
 
-                    <x-input wire:model.defer="namaRumah" class="block w-full mt-1" type="text" name="namaRumah" />
+                    <x-input wire:model.defer="namaRumah" class="block w-1/3 mt-1" type="text" name="namaRumah" />
                     <span class="text-xs text-red-600">
                         @error('namaRumah')
                             {{ $message }}
@@ -44,7 +44,7 @@
                                 #
                             </th>
                             <th scope="col"
-                                class="block px-2 py-3 text-sm font-medium tracking-wider text-left text-gray-500 uppercase md:table-cell w-max lg:px-6">
+                                class="block w-3/12 px-2 py-3 text-sm font-medium tracking-wider text-left text-gray-500 uppercase md:table-cell lg:px-6">
                                 ruangan
                             </th>
                             <th scope="col"
@@ -58,6 +58,10 @@
                             <th scope="col"
                                 class="block px-2 py-3 text-sm font-medium tracking-wider text-left text-gray-500 uppercase md:table-cell lg:px-6">
                                 tinggi (m)
+                            </th>
+                            <th scope="col"
+                                class="block px-2 py-3 text-sm font-medium tracking-wider text-left text-gray-500 uppercase md:table-cell lg:px-6">
+                                jml (Stop Kontak)
                             </th>
                             <th scope="col"
                                 class="block px-2 py-3 text-sm font-medium tracking-wider text-left text-gray-500 uppercase md:table-cell lg:px-6">
@@ -87,7 +91,8 @@
                             <td
                                 class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:py-4 lg:px-6 md:flex-col">
                                 <span class="w-1/3 font-bold md:hidden">Ruangan</span>
-                                <select class="text-sm" wire:model.defer="posts.ruangan.{{ $value }}">
+                                <select wire:change='changeEvent()' class="text-sm"
+                                    wire:model.defer="posts.ruangan.{{ $value }}">
                                     <option>-- Pilih Ruangan --</option>
                                     <option value='{"ruangan":"Teras", "lux": "60"}'>Teras</option>
                                     <option value='{"ruangan":"Garasi", "lux": "60"}'>Garasi</option>
@@ -129,6 +134,25 @@
                                     <span class="block text-sm text-danger">{{ $message }}</span>
                                 @enderror
                             </td>
+
+                            @if ($posts !== null && isset($posts['ruangan'][$value]))
+                                @if (json_decode($posts['ruangan'][$value])->ruangan !== 'Kamar Mandi' && json_decode($posts['ruangan'][$value])->ruangan !== 'Teras')
+                                    <td
+                                        class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:table-cell lg:px-6">
+                                        <span class="w-1/3 font-bold md:hidden">Jml Stop Kontak</span>
+                                        <input type="number" class="text-sm" min="0"
+                                            wire:model.defer="posts.jmlsk.{{ $value }}">
+                                        @error('posts.jmlsk.' . $value)
+                                            <span class="block text-sm text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </td>
+                                @else
+                                    <td></td>
+                                @endif
+                            @else
+                                <td></td>
+                            @endif
+
                             <td class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:table-cell lg:px-6">
                                 <input type="checkbox" class="text-sm"
                                     wire:change="cheklist({{ $value }})"
@@ -137,7 +161,13 @@
                             <td class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:table-cell lg:px-6 ">
                                 <span class="w-16 font-bold md:hidden">Action</span>
                                 <button type=" button" class="text-sm btn-danger"
-                                    wire:click.prevent="remove({{ $key }}, {{ $value }})">Hapus</button>
+                                    wire:click.prevent="remove({{ $key }}, {{ $value }})"><svg
+                                        xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg></button>
                             </td>
                             </tr>
                         @endforeach
