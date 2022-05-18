@@ -39,7 +39,6 @@
                             <option value="PIP">Pipa</option>
                             <option value="Saklar">Saklar</option>
                             <option value="PET">Peteng</option>
-                            <option value="AC">AC</option>
                             <option value="StopKontak">Stop Kontak</option>
                         </select>
                         <span class="text-sm text-danger">
@@ -76,14 +75,21 @@
                         </div>
                     @endif
 
-                    @if ($kategori == 'Kabel')
+                    @if ($kategori == 'Kabel' || $kategori == 'StopKontak')
                         <!-- Jenis -->
                         <div class="mt-4">
                             <x-label for="jenis" :value="__('Jenis')" />
                             <select class="text-sm" wire:model.defer='jenis'>
                                 <option>-- Pilih Jenis --</option>
-                                <option value="NYM">NYM</option>
-                                <option value="NYA">NYA</option>
+                                @if ($kategori == 'Kabel')
+                                    <option value="NYMB">NYM Tegangan Besar</option>
+                                    <option value="NYMK">NYM Tegangan Kecil</option>
+                                    <option value="NYA">NYA</option>
+                                @else
+                                    <option value="SKB">Stop Kontak Biasa</option>
+                                    <option value="SKK">Stop Kontak Khusus</option>
+                                @endif
+
                             </select>
                             <span class="text-sm text-danger">
                                 @error('jenis')

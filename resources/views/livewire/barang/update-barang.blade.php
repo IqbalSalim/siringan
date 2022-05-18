@@ -40,6 +40,7 @@
                             <option value="PIP">Pipa</option>
                             <option value="Saklar">Saklar</option>
                             <option value="PET">Peteng</option>
+                            <option value="StopKontak">Stop Kontak</option>
                         </select>
                         <span class="text-sm text-danger">
                             @error('kategori')
@@ -75,19 +76,21 @@
                         </div>
                     @endif
 
-                    @if ($kategori == 'Kabel' || $kategori == 'Saklar')
+                    @if ($kategori == 'Kabel' || $kategori == 'StopKontak')
                         <!-- Jenis -->
                         <div class="mt-4">
                             <x-label for="jenis" :value="__('Jenis')" />
                             <select class="text-sm" wire:model.defer='jenis'>
                                 <option>-- Pilih Jenis --</option>
                                 @if ($kategori == 'Kabel')
-                                    <option value="NYM">NYM</option>
+                                    <option value="NYMB">NYM Tegangan Besar</option>
+                                    <option value="NYMK">NYM Tegangan Kecil</option>
                                     <option value="NYA">NYA</option>
                                 @else
-                                    <option value="S1SK1">Saklar Stop Kontak</option>
-                                    <option value="S1">Saklar</option>
+                                    <option value="SKB">Stop Kontak Biasa</option>
+                                    <option value="SKK">Stop Kontak Khusus</option>
                                 @endif
+
                             </select>
                             <span class="text-sm text-danger">
                                 @error('jenis')
@@ -124,7 +127,7 @@
                         </span>
                     </div>
 
-                    @if ($kategori == 'Lampu' || $kategori == 'Saklar')
+                    @if ($kategori == 'Lampu' || $kategori == 'Saklar' || $kategori == 'StopKontak')
                         <!-- Upah -->
                         <div class="mt-4">
                             <x-label for="upah" :value="__('Upah Pemasangan')" />

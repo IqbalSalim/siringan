@@ -16,22 +16,34 @@ class CreateBarang extends Component
 
     public function changeEvent($value)
     {
+        $this->refreshForm();
+        $this->resetValidation();
         $this->kategori = $value;
         if ($value == 'Lampu') {
-            $this->watt = null;
-            $this->upah = null;
             $this->jenis = 'String';
-        } else if ($value == 'Kabel' || $value == 'Saklar') {
-            $this->jenis = null;
-            $this->watt = 'String';
-            if ($value == 'Saklar') {
-                $this->upah = null;
-            }
+        } else if ($value == 'Kabel') {
+            $this->watt = 0;
+            $this->upah = 0;
+        } else if ($value == 'Saklar') {
+            $this->jenis = 'String';
+            $this->watt = 0;
+        } else if ($value == 'StopKontak') {
+            $this->watt = 0;
         } else {
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->jenis = 'String';
-            $this->upah = null;
+            $this->upah = 0;
         }
+    }
+
+    public function refreshForm()
+    {
+        $this->nama = null;
+        $this->watt = null;
+        $this->satuan = null;
+        $this->jenis = null;
+        $this->harga = null;
+        $this->upah = null;
     }
 
     public function store()
@@ -42,7 +54,7 @@ class CreateBarang extends Component
                 'nama' => 'required|string|max:255',
                 'satuan' => 'required|string|max:255',
                 'harga' => 'required|numeric',
-                'watt' => 'required|string',
+                'watt' => 'required|numeric',
                 'jenis' => 'required|string',
                 'upah' => 'required|numeric',
 
@@ -55,6 +67,7 @@ class CreateBarang extends Component
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
+                'jenis' => $this->kategori,
             ]);
         } else if ($this->kategori == 'Kabel') {
             Barang::create([
@@ -66,22 +79,15 @@ class CreateBarang extends Component
         } else if ($this->kategori == 'Saklar') {
             Barang::create([
                 'nama' => $this->nama,
-                'jenis' => 'S1',
+                'jenis' => $this->kategori,
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
             ]);
-        } else if ($this->kategori == 'AC') {
-            Barang::create([
-                'nama' => $this->nama,
-                'jenis' => $this->kategori,
-                'satuan' => $this->satuan,
-                'harga' => $this->harga,
-            ]);
         } else if ($this->kategori == 'StopKontak') {
             Barang::create([
                 'nama' => $this->nama,
-                'jenis' => $this->kategori,
+                'jenis' => $this->jenis,
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
@@ -97,5 +103,6 @@ class CreateBarang extends Component
 
         session()->flash('message', 'Barang Berhasil ditambahkan.');
         return redirect()->route('barang');
+        dd('oke');
     }
 }

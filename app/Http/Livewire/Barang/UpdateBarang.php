@@ -21,29 +21,42 @@ class UpdateBarang extends Component
         $this->harga = $barang->harga;
         $this->upah = $barang->upah;
 
-        if ($barang->watt !== null) {
+        if ($barang->jenis == 'Lampu') {
             $this->kategori = 'Lampu';
             $this->jenis = 'String';
-        } else if ($barang->jenis == 'NYM' || $barang->jenis == 'NYA') {
+        } else if ($barang->jenis == 'NYMB' || $barang->jenis == 'NYMK' || $barang->jenis == 'NYA') {
             $this->kategori = 'Kabel';
             $this->watt = 'String';
-            $this->upah = 9999;
-        } else if ($barang->jenis == 'S1SK1' || $barang->jenis == 'S1') {
+            $this->upah = 0;
+        } else if ($barang->jenis == 'Saklar') {
             $this->kategori = 'Saklar';
             $this->watt = 'String';
+            $this->jenis = 'String';
         } else if ($barang->jenis == 'PET') {
             $this->kategori = 'PET';
             $this->watt = 'String';
             $this->jenis = 'String';
-            $this->upah = 9999;
+            $this->upah = 0;
         } else if ($barang->jenis == 'PIP') {
             $this->kategori = 'PIP';
             $this->watt = 'String';
             $this->jenis = 'String';
-            $this->upah = 9999;
+            $this->upah = 0;
+        } else if ($barang->jenis == 'SKK' || $barang->jenis == 'SKB') {
+            $this->kategori = 'StopKontak';
+            $this->watt = 'String';
         } else {
             $this->kategori = null;
         }
+    }
+    public function refreshForm()
+    {
+        $this->nama = null;
+        $this->watt = null;
+        $this->satuan = null;
+        $this->jenis = null;
+        $this->harga = null;
+        $this->upah = null;
     }
 
     public function render()
@@ -53,23 +66,23 @@ class UpdateBarang extends Component
 
     public function changeEvent($value)
     {
+        $this->refreshForm();
+        $this->resetValidation();
         $this->kategori = $value;
         if ($value == 'Lampu') {
-            $this->watt = null;
-            $this->upah = null;
             $this->jenis = 'String';
-        } else if ($value == 'Kabel' || $value == 'Saklar') {
-            $this->jenis = null;
+        } else if ($value == 'Kabel') {
             $this->watt = 'String';
-            if ($value == 'Saklar') {
-                $this->upah = null;
-            } else {
-                $this->upah = 9999;
-            }
+            $this->upah = 0;
+        } else if ($value == 'Saklar') {
+            $this->jenis = 'String';
+            $this->watt = 'String';
+        } else if ($value == 'StopKontak') {
+            $this->watt = 'String';
         } else {
             $this->watt = 'String';
             $this->jenis = 'String';
-            $this->upah = 9999;
+            $this->upah = 0;
         }
     }
 
@@ -81,7 +94,7 @@ class UpdateBarang extends Component
                 'nama' => 'required|string|max:255',
                 'satuan' => 'required|string|max:255',
                 'harga' => 'required|numeric',
-                'watt' => 'required|string',
+                'watt' => 'required|numeric',
                 'jenis' => 'required|string',
                 'upah' => 'required|numeric',
 
@@ -96,6 +109,7 @@ class UpdateBarang extends Component
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
+                'jenis' => $this->kategori,
             ]);
         } else if ($this->kategori == 'Kabel') {
             $barang->update([
@@ -105,6 +119,14 @@ class UpdateBarang extends Component
                 'harga' => $this->harga,
             ]);
         } else if ($this->kategori == 'Saklar') {
+            $barang->update([
+                'nama' => $this->nama,
+                'jenis' => $this->kategori,
+                'satuan' => $this->satuan,
+                'harga' => $this->harga,
+                'upah' => $this->upah,
+            ]);
+        } else if ($this->kategori == 'StopKontak') {
             $barang->update([
                 'nama' => $this->nama,
                 'jenis' => $this->jenis,
