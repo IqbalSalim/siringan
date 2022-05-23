@@ -133,10 +133,10 @@
                                     @if ($jenisBangunan == 'Rumah Tinggal')
                                         <option value='{"ruangan":"Teras", "lux": "60"}'>Teras</option>
                                         <option value='{"ruangan":"Garasi", "lux": "60"}'>Garasi</option>
-                                        <option value='{"ruangan":"Ruang Tamu", "lux": "250"}'>Ruang Tamu</option>
-                                        <option value='{"ruangan":"Ruang Keluarga", "lux": "250"}'>Ruang Keluarga
+                                        <option value='{"ruangan":"Ruang Tamu", "lux": "120"}'>Ruang Tamu</option>
+                                        <option value='{"ruangan":"Ruang Keluarga", "lux": "120"}'>Ruang Keluarga
                                         </option>
-                                        <option value='{"ruangan":"Kamar", "lux": "250"}'>Kamar</option>
+                                        <option value='{"ruangan":"Kamar", "lux": "120"}'>Kamar</option>
                                         <option value='{"ruangan":"Dapur", "lux": "250"}'>Dapur</option>
                                         <option value='{"ruangan":"Kamar Mandi", "lux": "250"}'>Kamar Mandi</option>
                                         <option value='{"ruangan":"Ruang Kerja", "lux": "250"}'>Ruang Santai/Kosong
