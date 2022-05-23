@@ -13,7 +13,8 @@ class BuatRab extends Component
     public $inputs = [];
     public $i = -1;
     public $count;
-    public $namaRumah;
+    public $namaBangunan, $jenisBangunan = 'Bangunan', $dayaRumah;
+
 
     public $aturan = [];
 
@@ -51,7 +52,11 @@ class BuatRab extends Component
 
     public function confirm()
     {
-        $this->aturan['namaRumah'] = 'required|string';
+        $this->aturan['namaBangunan'] = 'required|string';
+        $this->aturan['jenisBangunan'] = 'required|string';
+        if ($this->jenisBangunan == 'Rumah Tinggal') {
+            $this->aturan['dayaRumah'] = 'required|string';
+        }
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
             'posts.lebar.0.required' => 'Kolom Lebar Perlu diisi',
@@ -61,7 +66,9 @@ class BuatRab extends Component
             'posts.lebar.*.required' => 'Kolom Lebar Perlu diisi',
             'posts.tinggi.*.required' => 'Kolom Tinggi Perlu diisi',
             'posts.ruangan.*.required' => 'Kolom Ruangan Perlu diisi',
-            'namaRumah' => 'Nama Rumah Perlu diisi'
+            'namaBangunan' => 'Nama Bangunan Perlu diisi',
+            'jenisBangunan' => 'Jenis Bangunan Perlu diisi',
+            'dayaRumah' => 'Daya Rumah Perlu diisi'
         ]);
 
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -107,7 +114,9 @@ class BuatRab extends Component
 
         Ruangan::create([
             'user_id' => $user->id,
-            'nama_rumah' => $this->namaRumah,
+            'nama_bangunan' => $this->namaBangunan,
+            'jenis_bangunan' => $this->jenisBangunan,
+            'daya_rumah' => $this->dayaRumah,
             'data' => $data,
         ]);
         session()->flash('message', 'RAB Berhasil dibuat.');

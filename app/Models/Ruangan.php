@@ -10,7 +10,9 @@ class Ruangan extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'nama_rumah',
         'data',
+        'nama_bangunan',
+        'jenis_bangunan',
+        'daya_rumah',
     ];
 }
