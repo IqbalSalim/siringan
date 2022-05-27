@@ -19,12 +19,21 @@ class ShowArsip extends Component
         $this->idRab = $req->idRab;
     }
 
+    public function hitungMataLampu($lux, $panjang, $lebar)
+    {
+        // lumen di dapat 560 dari hasil perkalian 8 watt dikali 70 yang mereupakan ketetapan lumen
+        $result = round(($lux * $lebar * $panjang) / (560 * 0.8 * 0.6 * 1));
+        return (int) $result;
+    }
+
     public function render()
     {
 
 
         $result = Ruangan::find($this->idRab);
+        $this->dayaRumah = $result->daya_rumah;
         $data = json_decode($result->data);
+
 
         foreach ($data as $row) {
 
@@ -32,58 +41,60 @@ class ShowArsip extends Component
             $panjang = $row->panjang;
             $lebar = $row->lebar;
             $tinggi = $row->tinggi;
+            $jmlStopKontak = isset($row->jmlsk) ? $row->jmlsk : 0;
             $lux = $row->lux;
             $barang_watt = [];
+            $barangs = Barang::all();
 
             // Menghitung Lampu
-            $titikMataLampu = (($panjang * $lebar) <= 9) ? 1 : 2;
-            $array = [$panjang, $lebar];
+            $titikMataLampu = $this->hitungMataLampu($lux, $panjang, $lebar);
 
-
-            $flux = (array_product($array) * 0.35 * $lux) / $titikMataLampu;
-            // Item Lampu
-            $watt = floor($flux / 70);
-
-            $barangs = Barang::all();
-            $watts = Barang::where('watt', '!=', null)->orderBy('watt')->get();
-
-            for ($i = 0; $i < count($watts); $i++) {
-                if ($watt > $watts[$i]->watt and isset($watts[$i + 1])) {
-                    $id_barang = $watts[$i + 1]->id;
-                }
-            }
-            if ($watt <= $watts[0]->watt) {
-                $id_barang = $watts[0]->id;
-            }
-
-            $item[$id_barang] = array(
-                'jumlah' => (isset($item[$id_barang])) ? $item[$id_barang]['jumlah'] + $titikMataLampu : $titikMataLampu,
+            // Lampu
+            $barang = Barang::where('jenis', 'Lampu')->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $titikMataLampu : $titikMataLampu,
             );
             // End Lampu
 
-            // Kabel
-            $kabelAtasKeLampu = ($panjang >= $lebar) ? $panjang / 2 : $lebar / 2;
-            if ($titikMataLampu === 2) {
-                $kabelAtasKeLampu = $kabelAtasKeLampu * 1.5;
+
+            // Kabel NYM
+            $kabelAtasKeLampu = (int) round(($panjang * $lebar) - $titikMataLampu);
+            $jumlahKabelNYM = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? $kabelAtasKeLampu * 2 : $kabelAtasKeLampu;
+
+            if ($this->dayaRumah !== null) {
+                if ($this->dayaRumah == 'Daya Rendah') {
+                    $barang = Barang::where('jenis', 'NYMK')->get();
+                } else {
+                    $barang = Barang::where('jenis', 'NYMB')->get();
+                }
             }
-            $kabelSaklarKeAtas = ($tinggi - 1.25) * (($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? 2 : 4);
-            $jumlahKabel = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? $kabelAtasKeLampu * 2 : $kabelAtasKeLampu;
-            $barang = Barang::where('jenis', 'NYM')->get();
             $item[$barang[0]->id] = array(
-                'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $jumlahKabel : $jumlahKabel,
+                'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $jumlahKabelNYM : $jumlahKabelNYM,
             );
+            // End Kabel NYM
+
+
+            // Kabel NYA
+            $kabelSaklarKeAtas = ($tinggi - 1.50) * 2;
+
             $barang = Barang::where('jenis', 'NYA')->get();
             $item[$barang[0]->id] = array(
                 'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $kabelSaklarKeAtas : $kabelSaklarKeAtas,
             );
-            // End Kabel
+            // End Kabel NYA
+
 
             // Saklar
-            $barang = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? Barang::where('jenis', 'S1')->get() : Barang::where('jenis', 'S1SK1')->get();
+            $barang = Barang::where('jenis', 'Saklar')->get();
             $item[$barang[0]->id] = array(
                 'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + 1 : 1,
             );
+            $barang = Barang::where('jenis', 'PIP')->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + ($tinggi - 1.50) : $tinggi - 1.50,
+            );
             // End Saklar
+
 
             // Peteng
             $barang = Barang::where('jenis', 'PET')->get();
@@ -92,11 +103,40 @@ class ShowArsip extends Component
             );
             // End Peteng
 
-            // Pipa
-            $barang = Barang::where('jenis', 'PIP')->get();
-            $item[$barang[0]->id] = array(
-                'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $tinggi - 1.25 : $tinggi - 1.25,
-            );
+            // Stop Kontak AC
+            if ($ruangan !== 'Teras' && $ruangan !== "Kamar Mandi") {
+                $barang = Barang::where('jenis', 'SKK')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + 1 : 1,
+                );
+
+                $barang = Barang::where('jenis', 'NYA')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + (0.15 * 3) : (0.15 * 3),
+                );
+                $barang = Barang::where('jenis', 'PIP')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + (0.15 * 3) : (0.15 * 3),
+                );
+            }
+            // End Stop Kontak AC
+
+            // Stop Kontak Biasa
+            if ($ruangan !== 'Teras' && $ruangan !== "Kamar Mandi") {
+                $barang = Barang::where('jenis', 'SKB')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] +  $jmlStopKontak : $jmlStopKontak,
+                );
+                $barang = Barang::where('jenis', 'NYA')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + (($tinggi - 1.50) * 3) : (($tinggi - 1.50) * 3),
+                );
+                $barang = Barang::where('jenis', 'PIP')->get();
+                $item[$barang[0]->id] = array(
+                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + ($tinggi - 1.50) : ($tinggi - 1.50),
+                );
+            }
+            // End Stop Kontak Biasa
         }
 
         // EndPipa

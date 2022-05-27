@@ -14,7 +14,9 @@ class EditArsip extends Component
     public $updateMode = false;
     public $posts;
     public $inputs = [];
-    public $i, $idRab, $namaRumah;
+    public $i, $idRab;
+    public $namaBangunan, $jenisBangunan = 'Bangunan', $dayaRumah;
+
     protected $listeners = ['coba' => 'render'];
 
 
@@ -26,28 +28,26 @@ class EditArsip extends Component
     ];
 
 
-
-    // public function coba()
-    // {
-    //     dd('oke disnini');
-    // }
-
     public function mount($id)
     {
 
 
         $this->idRab = $id;
         $rabs = Ruangan::find($id);
-        $this->namaRumah = $rabs->nama_rumah;
-        // dd(json_decode($rabs->data)[0]->panjang);
+        $this->namaBangunan = $rabs->nama_bangunan;
+        $this->jenisBangunan = $rabs->jenis_bangunan;
+        $this->dayaRumah = $rabs->daya_rumah;
+
         $data = json_decode($rabs->data);
         $this->i = count($data) - 1;
         for ($i = 0; $i <= $this->i; $i++) {
             array_push($this->inputs, $i);
             $this->posts['ruangan'][$i] = '{"ruangan":"' . $data[$i]->ruangan . '", "lux": "' . $data[$i]->lux . '"}';
+            // $this->posts['ruangan'][$i] = "Kamar";
             $this->posts['panjang'][$i] = $data[$i]->panjang;
             $this->posts['lebar'][$i] = $data[$i]->lebar;
             $this->posts['tinggi'][$i] = $data[$i]->tinggi;
+            $this->posts['jmlsk'][$i] = $data[$i]->jmlsk;
         }
 
         // dd($this->posts);
@@ -80,7 +80,7 @@ class EditArsip extends Component
 
     public function update()
     {
-        $this->aturan['namaRumah'] = 'required|string';
+        $this->aturan['namaBangunan'] = 'required|string';
         // Validasi
         $this->validate($this->aturan, [
             'posts.panjang.0.required' => 'Kolom Panjang Perlu diisi',
@@ -91,7 +91,7 @@ class EditArsip extends Component
             'posts.lebar.*.required' => 'Kolom Lebar Perlu diisi',
             'posts.tinggi.*.required' => 'Kolom Tinggi Perlu diisi',
             'posts.ruangan.*.required' => 'Kolom Ruangan Perlu diisi',
-            'namaRumah' => 'Nama Rumah Perlu diisi'
+            'namaBangunan' => 'Nama Bangunan Perlu diisi'
 
         ]);
 
@@ -120,7 +120,9 @@ class EditArsip extends Component
         $rab = Ruangan::find($this->idRab);
         $rab->update([
             'data' => $data,
-            'nama_rumah' => $this->namaRumah
+            'nama_bangunan' => $this->namaBangunan,
+            'jenis_bangunan' => $this->jenisBangunan,
+            'daya_rumah' => $this->dayaRumah,
         ]);
         session()->flash('message', 'RAB Berhasil diubah.');
         return redirect()->to('arsip-rab');

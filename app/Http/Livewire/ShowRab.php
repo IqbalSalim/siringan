@@ -32,7 +32,7 @@ class ShowRab extends Component
             $panjang = $row->panjang;
             $lebar = $row->lebar;
             $tinggi = $row->tinggi;
-            $jmlStopKontak = $row->jmlsk;
+            $jmlStopKontak = isset($row->jmlsk) ? $row->jmlsk : 0;
             $lux = $row->lux;
             $barang_watt = [];
             $barangs = Barang::all();

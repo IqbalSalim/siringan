@@ -1,30 +1,44 @@
 <div x-cloak x-data="{ simpan: false, tambah: false, count: @entangle('count'), jenisBangunan: @entangle('jenisBangunan') }" x-on:close-simpan.window="simpan = false" x-on:open-simpan.window="simpan = true">
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Buat RAB') }}
-        </h2>
-        <div class="flex flex-row space-x-1 text-sm text-gray-400">
-            <div>Buat RAB</div>
+        <div class="flex flex-row justify-between">
+            <div>
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    {{ __('Buat RAB') }}
+                </h2>
+                <div class="flex flex-row space-x-1 text-sm text-gray-400">
+                    <div>Buat RAB</div>
+                </div>
+            </div>
         </div>
     </x-slot>
+    <div x-show="count < 1" class="px-8 py-2">
+        <div class="self-end">
+            <button @click="tambah=true" type="button" class="hidden float-right text-sm md:flex btn-secondary"
+                wire:click.prevent="add({{ $i }})">Tambah</button>
+        </div>
+    </div>
 
 
     <div class="px-4 py-12 md:px-6 lg:px-8">
         <div class="px-4 py-3 bg-white rounded-lg shadow-lg">
-
-            <div class="py-2 font-medium text-right">
-                Form RAB
-            </div>
             <div class="flex flex-row justify-between py-2 space-x-4">
                 <div class="py-2">
                     <a href="buat-rab" x-show="tambah" class="text-sm btn-info">Refresh</a>
                 </div>
-                <div class="self-end">
-                    <button @click="tambah=true" type="button" class="hidden float-right text-sm md:flex btn-secondary"
-                        wire:click.prevent="add({{ $i }})">Tambah</button>
+                <div x-show="tambah" class="py-2 font-medium text-right">
+                    Form RAB
+                    <div class="self-end">
+                        <button @click="tambah=true" type="button"
+                            class="hidden float-right text-sm md:flex btn-secondary"
+                            wire:click.prevent="add({{ $i }})">Tambah</button>
+                    </div>
                 </div>
+
             </div>
             <div class="divide-y-2 divide-gray-100 ">
+                <div x-show="count < 1" class="text-lg font-medium text-center uppercase text-danger">
+                    Data Kosong
+                </div>
                 <div x-show="count >= 1" class="flex flex-row justify-between">
                     <div class="py-2">
                         <x-label for="jenisBangunan" :value="__('Jenis Bangunan')" />
