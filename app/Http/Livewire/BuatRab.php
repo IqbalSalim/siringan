@@ -145,7 +145,7 @@ class BuatRab extends Component
 
     public function render()
     {
-        return view('livewire.buat-rab');
+        return view('livewire.buat-rab')->layoutData(['cekNav' => true]);
     }
 
     public function changeEvent()

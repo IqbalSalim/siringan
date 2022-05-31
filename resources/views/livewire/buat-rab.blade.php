@@ -1,20 +1,20 @@
 <div x-cloak x-data="{ simpan: false, tambah: false, count: @entangle('count'), jenisBangunan: @entangle('jenisBangunan') }" x-on:close-simpan.window="simpan = false" x-on:open-simpan.window="simpan = true">
-    <x-slot name="header">
-        <div class="flex flex-row justify-between">
-            <div>
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    {{ __('Buat RAB') }}
-                </h2>
-                <div class="flex flex-row space-x-1 text-sm text-gray-400">
-                    <div>Buat RAB</div>
+    <div class="bg-white shadow">
+        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="flex flex-row justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                        {{ __('Buat RAB') }}
+                    </h2>
+                    <div class="flex flex-row space-x-1 text-sm text-gray-400">
+                        <div>Buat RAB</div>
+                    </div>
+                </div>
+                <div class="self-end">
+                    <button @click="tambah=true" type="button" class="hidden float-right text-sm md:flex btn-secondary"
+                        wire:click.prevent="add({{ $i }})">Tambah</button>
                 </div>
             </div>
-        </div>
-    </x-slot>
-    <div x-show="count < 1" class="px-8 py-2">
-        <div class="self-end">
-            <button @click="tambah=true" type="button" class="hidden float-right text-sm md:flex btn-secondary"
-                wire:click.prevent="add({{ $i }})">Tambah</button>
         </div>
     </div>
 
@@ -26,7 +26,6 @@
                     <a href="buat-rab" x-show="tambah" class="text-sm btn-info">Refresh</a>
                 </div>
                 <div x-show="tambah" class="py-2 font-medium text-right">
-                    Form RAB
                     <div class="self-end">
                         <button @click="tambah=true" type="button"
                             class="hidden float-right text-sm md:flex btn-secondary"
@@ -162,15 +161,21 @@
                                         <option value='{"ruangan":"Ruang Komputer", "lux": "350"}'>Ruang Komputer
                                         </option>
                                         <option value='{"ruangan":"Ruang Rapat", "lux": "300"}'>Ruang Rapat</option>
-                                        <option value='{"ruangan":"Ruang Gambar", "lux": "750"}'>Ruang Gambar</option>
-                                        <option value='{"ruangan":"Gudang Arsip", "lux": "150"}'>Gudang Arsip</option>
-                                        <option value='{"ruangan":"Ruang Arsip Aktif", "lux": "300"}'>Ruang Arsip Aktif
+                                        <option value='{"ruangan":"Ruang Gambar", "lux": "750"}'>Ruang Gambar
+                                        </option>
+                                        <option value='{"ruangan":"Gudang Arsip", "lux": "150"}'>Gudang Arsip
+                                        </option>
+                                        <option value='{"ruangan":"Ruang Arsip Aktif", "lux": "300"}'>Ruang Arsip
+                                            Aktif
                                         </option>
                                     @elseif ($jenisBangunan == 'Lembaga Pendidikan')
                                         <option value='{"ruangan":"Ruang Kelas", "lux": "250"}'>Ruang Kelas</option>
-                                        <option value='{"ruangan":"Perpustakaan", "lux": "300"}'>Perpustakaan</option>
-                                        <option value='{"ruangan":"Laboratorium", "lux": "500"}'>Laboratorium</option>
-                                        <option value='{"ruangan":"Ruang Gambar", "lux": "750"}'>Ruang Gambar</option>
+                                        <option value='{"ruangan":"Perpustakaan", "lux": "300"}'>Perpustakaan
+                                        </option>
+                                        <option value='{"ruangan":"Laboratorium", "lux": "500"}'>Laboratorium
+                                        </option>
+                                        <option value='{"ruangan":"Ruang Gambar", "lux": "750"}'>Ruang Gambar
+                                        </option>
                                         <option value='{"ruangan":"Kantin", "lux": "200"}'>Kantin</option>
                                     @elseif ($jenisBangunan == 'Hotel dan Restoran')
                                         <option value='{"ruangan":"Lobby , Koridor", "lux": "100"}'>Lobby , Koridor
@@ -181,28 +186,35 @@
                                         <option value='{"ruangan":"Kamar Tidur", "lux": "150"}'>Kamar Tidur</option>
                                         <option value='{"ruangan":"Dapur", "lux": "300"}'>Dapur</option>
                                     @elseif ($jenisBangunan == 'Rumah Sakit')
-                                        <option value='{"ruangan":"Ruang Rawat Inap", "lux": "250"}'>Ruang Rawat Inap
+                                        <option value='{"ruangan":"Ruang Rawat Inap", "lux": "250"}'>Ruang Rawat
+                                            Inap
                                         </option>
-                                        <option value='{"ruangan":"Ruang Operasi, Ruang Bersalin", "lux": "300"}'>Ruang
+                                        <option value='{"ruangan":"Ruang Operasi, Ruang Bersalin", "lux": "300"}'>
+                                            Ruang
                                             Operasi, Ruang Bersalin
                                         </option>
-                                        <option value='{"ruangan":"Laboratorium", "lux": "500"}'>Laboratorium</option>
+                                        <option value='{"ruangan":"Laboratorium", "lux": "500"}'>Laboratorium
+                                        </option>
                                         <option value='{"ruangan":"Ruang Rekreasi dan Rehabilitasi", "lux": "250"}'>
                                             Ruang Rekreasi dan Rehabilitasi</option>
                                     @elseif ($jenisBangunan == 'Pertokoan')
-                                        <option value='{"ruangan":"Ruang Pamer Besar", "lux": "500"}'>Ruang Pamer Besar
+                                        <option value='{"ruangan":"Ruang Pamer Besar", "lux": "500"}'>Ruang Pamer
+                                            Besar
                                         </option>
-                                        <option value='{"ruangan":"Toko Kue dan Makanan", "lux": "250"}'>Toko Kue dan
+                                        <option value='{"ruangan":"Toko Kue dan Makanan", "lux": "250"}'>Toko Kue
+                                            dan
                                             Makanan
                                         </option>
                                         <option value='{"ruangan":"Toko Buku", "lux": "300"}'>Toko Buku</option>
                                         <option value='{"ruangan":"Toko Perhiasan", "lux": "500"}'>Toko Perhiasan
                                         </option>
                                         <option value='{"ruangan":"Toko Sepatu", "lux": "500"}'>Toko Sepatu</option>
-                                        <option value='{"ruangan":"Toko Pakaian", "lux": "500"}'>Toko Pakaian</option>
+                                        <option value='{"ruangan":"Toko Pakaian", "lux": "500"}'>Toko Pakaian
+                                        </option>
                                         <option value='{"ruangan":"Pasar Swalayan", "lux": "500"}'>Pasar Swalayan
                                         </option>
-                                        <option value='{"ruangan":"Toko Alat Listrik", "lux": "250"}'>Toko Alat Listrik
+                                        <option value='{"ruangan":"Toko Alat Listrik", "lux": "250"}'>Toko Alat
+                                            Listrik
                                         </option>
                                     @elseif ($jenisBangunan == 'Rumah Ibadah')
                                         <option value='{"ruangan":"Masjid", "lux": "200"}'>Masjid</option>
