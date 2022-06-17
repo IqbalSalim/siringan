@@ -40,6 +40,7 @@
                             <option value="Saklar">Saklar</option>
                             <option value="PET">Peteng</option>
                             <option value="StopKontak">Stop Kontak</option>
+                            <option value="MCB">MCB</option>
                         </select>
                         <span class="text-sm text-danger">
                             @error('kategori')
@@ -75,7 +76,7 @@
                         </div>
                     @endif
 
-                    @if ($kategori == 'Kabel' || $kategori == 'StopKontak')
+                    @if ($kategori == 'Kabel' || $kategori == 'StopKontak' || $kategori == 'MCB')
                         <!-- Jenis -->
                         <div class="mt-4">
                             <x-label for="jenis" :value="__('Jenis')" />
@@ -85,6 +86,13 @@
                                     <option value="NYMB">NYM Tegangan Besar</option>
                                     <option value="NYMK">NYM Tegangan Kecil</option>
                                     <option value="NYA">NYA</option>
+                                @elseif ($kategori == 'MCB')
+                                    <option value="MCB450">Daya 450 Watt</option>
+                                    <option value="MCB900">Daya 900 Watt</option>
+                                    <option value="MCB1300">Daya 1300 Watt</option>
+                                    <option value="MCB2200">Daya 2200 Watt</option>
+                                    <option value="MCB3500">Daya 3500 Watt</option>
+                                    <option value="MCB5500">Daya 5500 Watt</option>
                                 @else
                                     <option value="SKB">Stop Kontak Biasa</option>
                                     <option value="SKK">Stop Kontak Khusus</option>

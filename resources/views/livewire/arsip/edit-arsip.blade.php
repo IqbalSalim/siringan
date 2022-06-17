@@ -1,4 +1,4 @@
-<div>
+<div x-cloak x-data="{ simpan: false, tambah: false, count: @entangle('count'), jenisBangunan: @entangle('jenisBangunan') }">
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Edit RAB') }}
@@ -43,8 +43,12 @@
 
                         <select class="text-sm" wire:model.defer="dayaRumah">
                             <option>-- Pilih Daya Rumah --</option>
-                            <option value='Daya Rendah'>Daya Rendah (450 W - 1300 W)</option>
-                            <option value='Daya Tinggi'>Daya Tinggi (2200 W - 5500 W)</option>
+                            <option value='MCB450'>Daya 450 W</option>
+                            <option value='MCB900'>Daya 900 W</option>
+                            <option value='MCB1300'>Daya 1300 W</option>
+                            <option value='MCB2200'>Daya 2200 W</option>
+                            <option value='MCB3500'>Daya 3500 W</option>
+                            <option value='MCB5500'>Daya 5500 W</option>
                         </select>
                         <span class="text-xs text-red-600">
                             @error('dayaRumah')
@@ -55,8 +59,7 @@
                     <div class="py-2">
                         <x-label for="namaBangunan" :value="__('Nama ' . $jenisBangunan)" />
 
-                        <x-input wire:model.defer="namaBangunan" class="mt-1" type="text"
-                            name="namaBangunan" />
+                        <x-input wire:model.defer="namaBangunan" class="mt-1" type="text" name="namaBangunan" />
                         <span class="text-xs text-red-600">
                             @error('namaBangunan')
                                 {{ $message }}
@@ -162,7 +165,8 @@
                                             <option value='{"ruangan":"Ballroom", "lux": "200"}'>Ballroom</option>
                                             <option value='{"ruangan":"Ruang Makan", "lux": "250"}'>Ruang Makan</option>
                                             <option value='{"ruangan":"Cafetaria", "lux": "250"}'>Cafetaria</option>
-                                            <option value='{"ruangan":"Kamar Tidur", "lux": "150"}'>Kamar Tidur</option>
+                                            <option value='{"ruangan":"Kamar Tidur", "lux": "150"}'>Kamar Tidur
+                                            </option>
                                             <option value='{"ruangan":"Dapur", "lux": "300"}'>Dapur</option>
                                         @elseif ($jenisBangunan == 'Rumah Sakit')
                                             <option value='{"ruangan":"Ruang Rawat Inap", "lux": "250"}'>Ruang Rawat
@@ -174,7 +178,8 @@
                                             </option>
                                             <option value='{"ruangan":"Laboratorium", "lux": "500"}'>Laboratorium
                                             </option>
-                                            <option value='{"ruangan":"Ruang Rekreasi dan Rehabilitasi", "lux": "250"}'>
+                                            <option
+                                                value='{"ruangan":"Ruang Rekreasi dan Rehabilitasi", "lux": "250"}'>
                                                 Ruang Rekreasi dan Rehabilitasi</option>
                                         @elseif ($jenisBangunan == 'Pertokoan')
                                             <option value='{"ruangan":"Ruang Pamer Besar", "lux": "500"}'>Ruang Pamer
@@ -187,7 +192,8 @@
                                             <option value='{"ruangan":"Toko Buku", "lux": "300"}'>Toko Buku</option>
                                             <option value='{"ruangan":"Toko Perhiasan", "lux": "500"}'>Toko Perhiasan
                                             </option>
-                                            <option value='{"ruangan":"Toko Sepatu", "lux": "500"}'>Toko Sepatu</option>
+                                            <option value='{"ruangan":"Toko Sepatu", "lux": "500"}'>Toko Sepatu
+                                            </option>
                                             <option value='{"ruangan":"Toko Pakaian", "lux": "500"}'>Toko Pakaian
                                             </option>
                                             <option value='{"ruangan":"Pasar Swalayan", "lux": "500"}'>Pasar Swalayan
@@ -254,8 +260,8 @@
                                     <span class="w-16 font-bold md:hidden">Action</span>
                                     <button type=" button" class="text-sm btn-danger"
                                         wire:click.prevent="remove({{ $key }}, {{ $value }})"><svg
-                                            xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"
-                                            viewBox="0 0 20 20" fill="currentColor">
+                                            xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
                                             <path fill-rule="evenodd"
                                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                 clip-rule="evenodd" />

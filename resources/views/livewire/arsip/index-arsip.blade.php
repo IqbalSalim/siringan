@@ -30,7 +30,7 @@
                             </th>
                             <th scope="col"
                                 class="w-3/12 px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
-                                Nama Rumah
+                                Nama Bangunan
                             </th>
                             <th scope="col"
                                 class="w-full px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">

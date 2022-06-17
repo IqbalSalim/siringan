@@ -63,8 +63,12 @@
 
                         <select class="text-sm" wire:model.defer="dayaRumah">
                             <option>-- Pilih Daya Rumah --</option>
-                            <option value='Daya Rendah'>Daya Rendah (450 W - 1300 W)</option>
-                            <option value='Daya Tinggi'>Daya Tinggi (2200 W - 5500 W)</option>
+                            <option value='MCB450'>Daya 450 W</option>
+                            <option value='MCB900'>Daya 900 W</option>
+                            <option value='MCB1300'>Daya 1300 W</option>
+                            <option value='MCB2200'>Daya 2200 W</option>
+                            <option value='MCB3500'>Daya 3500 W</option>
+                            <option value='MCB5500'>Daya 5500 W</option>
                         </select>
                         <span class="text-xs text-red-600">
                             @error('dayaRumah')
@@ -75,8 +79,7 @@
                     <div class="py-2">
                         <x-label for="namaBangunan" :value="__('Nama ' . $jenisBangunan)" />
 
-                        <x-input wire:model.defer="namaBangunan" class="mt-1" type="text"
-                            name="namaBangunan" />
+                        <x-input wire:model.defer="namaBangunan" class="mt-1" type="text" name="namaBangunan" />
                         <span class="text-xs text-red-600">
                             @error('namaRumah')
                                 {{ $message }}
@@ -270,8 +273,7 @@
                             @endif
 
                             <td class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:table-cell lg:px-6">
-                                <input type="checkbox" class="text-sm"
-                                    wire:change="cheklist({{ $value }})"
+                                <input type="checkbox" class="text-sm" wire:change="cheklist({{ $value }})"
                                     wire:model="posts.cheklist.{{ $value }}">
                             </td>
                             <td class="flex flex-row items-center px-2 space-x-2 md:space-x-0 md:table-cell lg:px-6 ">

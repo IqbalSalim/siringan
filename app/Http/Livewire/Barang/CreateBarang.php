@@ -21,7 +21,7 @@ class CreateBarang extends Component
         $this->kategori = $value;
         if ($value == 'Lampu') {
             $this->jenis = 'String';
-        } else if ($value == 'Kabel') {
+        } else if ($value == 'Kabel' || $value == 'MCB') {
             $this->watt = 0;
             $this->upah = 0;
         } else if ($value == 'Saklar') {
@@ -91,6 +91,13 @@ class CreateBarang extends Component
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
+            ]);
+        } else if ($this->kategori == 'MCB') {
+            Barang::create([
+                'nama' => $this->nama,
+                'jenis' => $this->jenis,
+                'satuan' => $this->satuan,
+                'harga' => $this->harga,
             ]);
         } else {
             Barang::create([

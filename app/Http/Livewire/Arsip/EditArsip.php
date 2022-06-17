@@ -15,6 +15,7 @@ class EditArsip extends Component
     public $posts;
     public $inputs = [];
     public $i, $idRab;
+    public $count = 1;
     public $namaBangunan, $jenisBangunan = 'Bangunan', $dayaRumah;
 
     protected $listeners = ['coba' => 'render'];

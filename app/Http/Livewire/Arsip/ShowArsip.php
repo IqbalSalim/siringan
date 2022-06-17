@@ -13,6 +13,8 @@ class ShowArsip extends Component
     public $rabs = [], $tabelUpah = [];
     public $totalHargaBarang = 0, $totalUpah = 0;
     public $idRab;
+    public $lampu;
+    public $stopKontak;
 
     public function mount(Request $req)
     {
@@ -32,7 +34,12 @@ class ShowArsip extends Component
 
         $result = Ruangan::find($this->idRab);
         $this->dayaRumah = $result->daya_rumah;
+        $jenisBangunan = $result->jenis_bangunan;
         $data = json_decode($result->data);
+        $lampu = [];
+        $stopKontak = [];
+
+
 
 
         foreach ($data as $row) {
@@ -54,7 +61,13 @@ class ShowArsip extends Component
             $item[$barang[0]->id] = array(
                 'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $titikMataLampu : $titikMataLampu,
             );
+
+            array_push($lampu, [
+                'ruangan' => $ruangan,
+                'jumlah' => $titikMataLampu,
+            ]);
             // End Lampu
+
 
 
             // Kabel NYM
@@ -62,7 +75,7 @@ class ShowArsip extends Component
             $jumlahKabelNYM = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? $kabelAtasKeLampu * 2 : $kabelAtasKeLampu;
 
             if ($this->dayaRumah !== null) {
-                if ($this->dayaRumah == 'Daya Rendah') {
+                if ($this->dayaRumah == 'MCB450' || $this->dayaRumah == 'MCB900' || $this->dayaRumah == 'MCB1300') {
                     $barang = Barang::where('jenis', 'NYMK')->get();
                 } else {
                     $barang = Barang::where('jenis', 'NYMB')->get();
@@ -105,10 +118,6 @@ class ShowArsip extends Component
 
             // Stop Kontak AC
             if ($ruangan !== 'Teras' && $ruangan !== "Kamar Mandi") {
-                $barang = Barang::where('jenis', 'SKK')->get();
-                $item[$barang[0]->id] = array(
-                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + 1 : 1,
-                );
 
                 $barang = Barang::where('jenis', 'NYA')->get();
                 $item[$barang[0]->id] = array(
@@ -135,11 +144,32 @@ class ShowArsip extends Component
                 $item[$barang[0]->id] = array(
                     'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + ($tinggi - 1.50) : ($tinggi - 1.50),
                 );
+
+                array_push($stopKontak, [
+                    'ruangan' => $ruangan,
+                    'jumlah' => $jmlStopKontak,
+                ]);
             }
             // End Stop Kontak Biasa
+
         }
 
         // EndPipa
+
+        // MCB
+
+        if ($jenisBangunan == 'Rumah Tinggal') {
+            $barang = Barang::where('jenis', $this->dayaRumah)->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => 1,
+            );
+        } else {
+            $barang = Barang::where('jenis', 'MCB5500')->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => 1,
+            );
+        }
+        // End MCB
 
 
         $barangs = Barang::all();
@@ -150,6 +180,7 @@ class ShowArsip extends Component
                     $this->rabs[$k]['satuan'] = $barang->satuan;
                     $this->rabs[$k]['harga'] = $barang->harga;
                     $this->rabs[$k]['watt'] = $barang->watt;
+                    $this->rabs[$k]['jenis'] = $barang->jenis;
                     $this->rabs[$k]['jumlah'] = $value['jumlah'];
                     $this->rabs[$k]['subTotal'] = $barang->harga * $value['jumlah'];
                     if ($barang->upah !== null) {
@@ -165,6 +196,10 @@ class ShowArsip extends Component
             }
         }
 
+        $this->lampu = $lampu;
+        $this->stopKontak = $stopKontak;
+
+        // dd($this->rabs);
         return view('livewire.arsip.show-arsip');
     }
 }

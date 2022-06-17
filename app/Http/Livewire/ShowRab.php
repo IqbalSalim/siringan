@@ -10,6 +10,8 @@ class ShowRab extends Component
 {
     public $rabs = [], $tabelUpah = [];
     public $totalHargaBarang = 0, $totalUpah = 0, $idRab;
+    public $lampu;
+    public $stopKontak;
 
     public function hitungMataLampu($lux, $panjang, $lebar)
     {
@@ -24,7 +26,10 @@ class ShowRab extends Component
         $result = Ruangan::where('user_id', $user->id)->orderBy('created_at', 'desc')->limit(1)->get();
         $this->idRab = $result[0]->id;
         $this->dayaRumah = $result[0]->daya_rumah;
+        $jenisBangunan = $result[0]->jenis_bangunan;
         $data = json_decode($result[0]->data);
+        $lampu = [];
+        $stopKontak = [];
 
         foreach ($data as $row) {
 
@@ -37,6 +42,7 @@ class ShowRab extends Component
             $barang_watt = [];
             $barangs = Barang::all();
 
+
             // Menghitung Lampu
             $titikMataLampu = $this->hitungMataLampu($lux, $panjang, $lebar);
 
@@ -45,6 +51,11 @@ class ShowRab extends Component
             $item[$barang[0]->id] = array(
                 'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + $titikMataLampu : $titikMataLampu,
             );
+
+            array_push($lampu, [
+                'ruangan' => $ruangan,
+                'jumlah' => $titikMataLampu,
+            ]);
             // End Lampu
 
 
@@ -53,7 +64,7 @@ class ShowRab extends Component
             $jumlahKabelNYM = ($ruangan === 'Teras' || $ruangan === "Kamar Mandi") ? $kabelAtasKeLampu * 2 : $kabelAtasKeLampu;
 
             if ($this->dayaRumah !== null) {
-                if ($this->dayaRumah == 'Daya Rendah') {
+                if ($this->dayaRumah == 'MCB450' || $this->dayaRumah == 'MCB900' || $this->dayaRumah == 'MCB1300') {
                     $barang = Barang::where('jenis', 'NYMK')->get();
                 } else {
                     $barang = Barang::where('jenis', 'NYMB')->get();
@@ -94,23 +105,7 @@ class ShowRab extends Component
             );
             // End Peteng
 
-            // Stop Kontak AC
-            if ($ruangan !== 'Teras' && $ruangan !== "Kamar Mandi") {
-                $barang = Barang::where('jenis', 'SKK')->get();
-                $item[$barang[0]->id] = array(
-                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + 1 : 1,
-                );
 
-                $barang = Barang::where('jenis', 'NYA')->get();
-                $item[$barang[0]->id] = array(
-                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + (0.15 * 3) : (0.15 * 3),
-                );
-                $barang = Barang::where('jenis', 'PIP')->get();
-                $item[$barang[0]->id] = array(
-                    'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + (0.15 * 3) : (0.15 * 3),
-                );
-            }
-            // End Stop Kontak AC
 
             // Stop Kontak Biasa
             if ($ruangan !== 'Teras' && $ruangan !== "Kamar Mandi") {
@@ -126,9 +121,32 @@ class ShowRab extends Component
                 $item[$barang[0]->id] = array(
                     'jumlah' => (isset($item[$barang[0]->id])) ? $item[$barang[0]->id]['jumlah'] + ($tinggi - 1.50) : ($tinggi - 1.50),
                 );
+                array_push($stopKontak, [
+                    'ruangan' => $ruangan,
+                    'jumlah' => $jmlStopKontak,
+                ]);
             }
             // End Stop Kontak Biasa
+
+
         }
+
+        // MCB
+
+        if ($jenisBangunan == 'Rumah Tinggal') {
+            $barang = Barang::where('jenis', $this->dayaRumah)->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => 1,
+            );
+        } else {
+            $barang = Barang::where('jenis', 'MCB5500')->get();
+            $item[$barang[0]->id] = array(
+                'jumlah' => 1,
+            );
+        }
+        // End MCB
+
+
 
         // EndPipa
 
@@ -140,6 +158,7 @@ class ShowRab extends Component
                     $this->rabs[$k]['satuan'] = $barang->satuan;
                     $this->rabs[$k]['harga'] = $barang->harga;
                     $this->rabs[$k]['watt'] = $barang->watt;
+                    $this->rabs[$k]['jenis'] = $barang->jenis;
                     $this->rabs[$k]['jumlah'] = $value['jumlah'];
                     $this->rabs[$k]['subTotal'] = $barang->harga * $value['jumlah'];
                     if ($barang->upah !== null) {
@@ -155,6 +174,8 @@ class ShowRab extends Component
             }
         }
 
+        $this->lampu = $lampu;
+        $this->stopKontak = $stopKontak;
 
         return view('livewire.show-rab');
     }

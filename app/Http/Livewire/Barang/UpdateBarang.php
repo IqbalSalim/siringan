@@ -26,26 +26,31 @@ class UpdateBarang extends Component
             $this->jenis = 'String';
         } else if ($barang->jenis == 'NYMB' || $barang->jenis == 'NYMK' || $barang->jenis == 'NYA') {
             $this->kategori = 'Kabel';
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->upah = 0;
         } else if ($barang->jenis == 'Saklar') {
             $this->kategori = 'Saklar';
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->jenis = 'String';
         } else if ($barang->jenis == 'PET') {
             $this->kategori = 'PET';
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->jenis = 'String';
             $this->upah = 0;
         } else if ($barang->jenis == 'PIP') {
             $this->kategori = 'PIP';
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->jenis = 'String';
             $this->upah = 0;
         } else if ($barang->jenis == 'SKK' || $barang->jenis == 'SKB') {
             $this->kategori = 'StopKontak';
-            $this->watt = 'String';
+            $this->watt = 0;
+        } else if ($barang->jenis == 'MCB450' || $barang->jenis == 'MCB900' || $barang->jenis == 'MCB1300' || $barang->jenis == 'MCB2200' || $barang->jenis == 'MCB3500' || $barang->jenis == 'MCB5500') {
+            $this->kategori = 'MCB';
+            $this->watt = 0;
+            $this->upah = 0;
         } else {
+
             $this->kategori = null;
         }
     }
@@ -71,16 +76,16 @@ class UpdateBarang extends Component
         $this->kategori = $value;
         if ($value == 'Lampu') {
             $this->jenis = 'String';
-        } else if ($value == 'Kabel') {
-            $this->watt = 'String';
+        } else if ($value == 'Kabel' || $value == 'MCB') {
+            $this->watt = 0;
             $this->upah = 0;
         } else if ($value == 'Saklar') {
             $this->jenis = 'String';
-            $this->watt = 'String';
+            $this->watt = 0;
         } else if ($value == 'StopKontak') {
             $this->watt = 'String';
         } else {
-            $this->watt = 'String';
+            $this->watt = 0;
             $this->jenis = 'String';
             $this->upah = 0;
         }
@@ -97,9 +102,9 @@ class UpdateBarang extends Component
                 'watt' => 'required|numeric',
                 'jenis' => 'required|string',
                 'upah' => 'required|numeric',
-
             ]
         );
+
 
         $barang = Barang::find($this->idBarang);
         if ($this->kategori == 'Lampu') {
@@ -133,6 +138,13 @@ class UpdateBarang extends Component
                 'satuan' => $this->satuan,
                 'harga' => $this->harga,
                 'upah' => $this->upah,
+            ]);
+        } else if ($this->kategori == 'MCB') {
+            $barang->update([
+                'nama' => $this->nama,
+                'jenis' => $this->jenis,
+                'satuan' => $this->satuan,
+                'harga' => $this->harga,
             ]);
         } else {
             $barang->update([

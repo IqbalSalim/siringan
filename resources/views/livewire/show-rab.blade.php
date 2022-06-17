@@ -41,6 +41,10 @@
                                 Nama Barang
                             </th>
                             <th scope="col"
+                                class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase w-4/12px-2 md:px-6">
+                                <span class="sr-only">Ruangan : xxxx</span>
+                            </th>
+                            <th scope="col"
                                 class="px-2 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase md:px-6">
                                 Jumlah
                             </th>
@@ -63,36 +67,105 @@
                             $no = 0;
                         @endphp
                         @foreach ($rabs as $key => $rab)
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
-                                    {{ $no += 1 }}
-                                </td>
-                                <td class="px-2 py-4 md:px-6">
-                                    @if ($rab['watt'] !== null)
-                                        {{ $rab['nama'] . ' ' . $rab['watt'] . ' watt' }}
+                            @if ($rab['watt'] !== null)
+                                @foreach ($lampu as $row)
+                                    @if ($no == 0)
+                                        <tr>
+                                            <td rowspan="2"
+                                                class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
+                                                {{ $no += 1 }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['nama'] . ' ' . $rab['watt'] . ' watt' }}
+                                            </td>
+                                            <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['jumlah'] }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['satuan'] }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ currency_IDR($rab['harga']) }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ currency_IDR($rab['subTotal']) }}
+                                            </td>
+                                        </tr>
                                     @else
-                                        {{ $rab['nama'] }}
+                                        <tr>
+                                            <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
+                                        </tr>
                                     @endif
-                                </td>
-                                <td class="px-2 py-4 md:px-6">
-                                    {{ $rab['jumlah'] }}
-                                </td>
-                                <td class="px-2 py-4 md:px-6">
-                                    {{ $rab['satuan'] }}
-                                </td>
-                                <td class="px-2 py-4 md:px-6">
-                                    {{ currency_IDR($rab['harga']) }}
-                                </td>
-                                <td class="px-2 py-4 md:px-6">
-                                    {{ currency_IDR($rab['subTotal']) }}
-                                </td>
-                            </tr>
+                                @endforeach
+                            @elseif ($rab['jenis'] == 'SKB')
+                                @php
+                                    $cekSK = 0;
+                                @endphp
+                                @foreach ($stopKontak as $row)
+                                    @if ($cekSK == 0)
+                                        <tr>
+                                            <td rowspan="2"
+                                                class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
+                                                {{ $no += 1 }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['nama'] }}
+                                            </td>
+                                            <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['jumlah'] }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ $rab['satuan'] }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ currency_IDR($rab['harga']) }}
+                                            </td>
+                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                                {{ currency_IDR($rab['subTotal']) }}
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $cekSK++;
+                                        @endphp
+                                    @else
+                                        <tr>
+                                            <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
+                                        {{ $no += 1 }}
+                                    </td>
+
+                                    <td colspan="1" class="px-2 py-4 md:px-6">
+                                        {{ $rab['nama'] }}
+                                    </td>
+                                    <td></td>
+
+                                    <td class="px-2 py-4 md:px-6">
+                                        {{ $rab['jumlah'] }}
+                                    </td>
+                                    <td class="px-2 py-4 md:px-6">
+                                        {{ $rab['satuan'] }}
+                                    </td>
+                                    <td class="px-2 py-4 md:px-6">
+                                        {{ currency_IDR($rab['harga']) }}
+                                    </td>
+                                    <td class="px-2 py-4 md:px-6">
+                                        {{ currency_IDR($rab['subTotal']) }}
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                         <!-- More people... -->
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="pr-4 font-semibold text-right">Total Harga Barang</td>
+                            <td colspan="6" class="pr-4 font-semibold text-right">Total Harga Barang</td>
                             <td class="px-2 py-4 md:px-6">{{ currency_IDR($totalHargaBarang) }}</td>
                         </tr>
                     </tfoot>
