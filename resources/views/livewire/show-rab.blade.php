@@ -71,24 +71,24 @@
                                 @foreach ($lampu as $row)
                                     @if ($no == 0)
                                         <tr>
-                                            <td rowspan="2"
+                                            <td rowspan="{{ count($lampu) }}"
                                                 class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
                                                 {{ $no += 1 }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($lampu) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['nama'] . ' ' . $rab['watt'] . ' watt' }}
                                             </td>
                                             <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($lampu) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['jumlah'] }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($lampu) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['satuan'] }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($lampu) }}" class="px-2 py-4 md:px-6">
                                                 {{ currency_IDR($rab['harga']) }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($lampu) }}" class="px-2 py-4 md:px-6">
                                                 {{ currency_IDR($rab['subTotal']) }}
                                             </td>
                                         </tr>
@@ -105,24 +105,24 @@
                                 @foreach ($stopKontak as $row)
                                     @if ($cekSK == 0)
                                         <tr>
-                                            <td rowspan="2"
+                                            <td rowspan="{{ count($stopKontak) }}"
                                                 class="px-4 py-3 text-sm text-gray-500 md:px-6 whitespace-nowrap">
                                                 {{ $no += 1 }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($stopKontak) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['nama'] }}
                                             </td>
                                             <td>{{ $row['ruangan'] }} : {{ $row['jumlah'] }}</td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($stopKontak) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['jumlah'] }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($stopKontak) }}" class="px-2 py-4 md:px-6">
                                                 {{ $rab['satuan'] }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($stopKontak) }}" class="px-2 py-4 md:px-6">
                                                 {{ currency_IDR($rab['harga']) }}
                                             </td>
-                                            <td rowspan="2" class="px-2 py-4 md:px-6">
+                                            <td rowspan="{{ count($stopKontak) }}" class="px-2 py-4 md:px-6">
                                                 {{ currency_IDR($rab['subTotal']) }}
                                             </td>
                                         </tr>
